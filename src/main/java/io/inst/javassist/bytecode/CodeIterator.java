@@ -18,6 +18,11 @@ package io.inst.javassist.bytecode;
 
 import java.util.ArrayList;
 import java.util.List;
+import io.inst.javassist.bytecode.CodeAttribute;
+import io.inst.javassist.bytecode.ExceptionTable;
+import io.inst.javassist.bytecode.LineNumberAttribute;
+import io.inst.javassist.bytecode.LocalVariableAttribute;
+import io.inst.javassist.bytecode.StackMapTable;
 
 /**
  * An iterator for editing a code attribute.

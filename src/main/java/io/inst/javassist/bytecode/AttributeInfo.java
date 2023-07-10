@@ -23,6 +23,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import io.inst.javassist.bytecode.AnnotationDefaultAttribute;
+import io.inst.javassist.bytecode.AnnotationsAttribute;
+import io.inst.javassist.bytecode.BootstrapMethodsAttribute;
+import io.inst.javassist.bytecode.CodeAttribute;
+import io.inst.javassist.bytecode.ConstantAttribute;
+import io.inst.javassist.bytecode.DeprecatedAttribute;
+import io.inst.javassist.bytecode.EnclosingMethodAttribute;
+import io.inst.javassist.bytecode.ExceptionsAttribute;
+import io.inst.javassist.bytecode.InnerClassesAttribute;
+import io.inst.javassist.bytecode.LineNumberAttribute;
+import io.inst.javassist.bytecode.LocalVariableAttribute;
+import io.inst.javassist.bytecode.LocalVariableTypeAttribute;
+import io.inst.javassist.bytecode.MethodParametersAttribute;
+import io.inst.javassist.bytecode.NestHostAttribute;
+import io.inst.javassist.bytecode.NestMembersAttribute;
+import io.inst.javassist.bytecode.ParameterAnnotationsAttribute;
+import io.inst.javassist.bytecode.SignatureAttribute;
+import io.inst.javassist.bytecode.SourceFileAttribute;
+import io.inst.javassist.bytecode.StackMapTable;
+import io.inst.javassist.bytecode.SyntheticAttribute;
+import io.inst.javassist.bytecode.TypeAnnotationsAttribute;
 
 // Note: if you define a new subclass of AttributeInfo, then
 //       update AttributeInfo.read(), .copy(), and (maybe) write().

@@ -17,6 +17,7 @@
 package io.inst.javassist.bytecode.stackmap;
 
 import io.inst.javassist.bytecode.StackMapTable;
+import io.inst.javassist.bytecode.stackmap.TypeData;
 
 public interface TypeTag {
     String TOP_TYPE = "*top*";

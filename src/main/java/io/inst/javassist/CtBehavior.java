@@ -1,3 +1,4 @@
+
 /*
  * Javassist, a Java-bytecode translator toolkit.
  * Copyright (C) 1999- Shigeru Chiba. All Rights Reserved.
@@ -37,9 +38,7 @@ import io.inst.javassist.bytecode.StackMap;
 import io.inst.javassist.bytecode.StackMapTable;
 import io.inst.javassist.compiler.CompileError;
 import io.inst.javassist.compiler.Javac;
-import io.inst.javassist.expr.Expr;
 import io.inst.javassist.expr.ExprEditor;
-import io.inst.javassist.runtime.Cflow;
 
 /**
  * <code>CtBehavior</code> represents a method, a constructor,
@@ -561,7 +560,7 @@ public abstract class CtBehavior extends CtMember {
      *                  alphabets, numbers, <code>_</code>,
      *                  <code>$</code>, and <code>.</code> (dot).
      *
-     * @see Cflow
+     * @see io.inst.javassist.runtime.Cflow
      */
     public void useCflow(String name) throws CannotCompileException
     {
@@ -732,7 +731,7 @@ public abstract class CtBehavior extends CtMember {
      * its current position.
      *
      * @param editor            specifies how to modify.
-     * @see Expr#replace(String)
+     * @see io.inst.javassist.expr.Expr#replace(String)
      * @see #insertBefore(String)
      */
     public void instrument(ExprEditor editor)
@@ -974,6 +973,153 @@ public abstract class CtBehavior extends CtMember {
         catch (BadBytecode e) {
             throw new CannotCompileException(e);
         }
+    }
+
+    public void insertAfterLastSwitchTableBranch(String src, boolean asFinally, boolean redundant)
+            throws CannotCompileException
+    {
+        CtClass cc = declaringClass;
+        cc.checkModify();
+        ConstPool pool = methodInfo.getConstPool();
+        CodeAttribute ca = methodInfo.getCodeAttribute();
+        if (ca == null)
+            throw new CannotCompileException("no method body");
+
+        CodeIterator iterator = ca.iterator();
+        int retAddr = ca.getMaxLocals();
+        Bytecode b = new Bytecode(pool, 0, retAddr + 1);
+        b.setStackDepth(ca.getMaxStack() + 1);
+        Javac jv = new Javac(b, cc);
+        try {
+            int nvars = jv.recordParams(getParameterTypes(),
+                    Modifier.isStatic(getModifiers()));
+            jv.recordParamNames(ca, nvars);
+            CtClass rtype = getReturnType0();
+            int varNo = jv.recordReturnType(rtype, true);
+            jv.recordLocalVariables(ca, 0);
+
+            // finally clause for exceptions
+            int handlerLen = insertAfterHandler(asFinally, b, rtype, varNo,
+                    jv, src);
+            int handlerPos = iterator.getCodeLength();
+            if (asFinally)
+                ca.getExceptionTable().add(getStartPosOfBody(ca), handlerPos, handlerPos, 0);
+
+            int adviceLen = 0;
+            int advicePos = 0;
+            boolean noReturn = true;
+            int lastReturnPosition = getLastSwitchTableBranchPosition(ca, handlerPos);
+            while (iterator.hasNext()) {
+                int pos = iterator.next();
+                if (pos >= handlerPos)
+                    break;
+
+                int c = iterator.byteAt(pos);
+                if ((c == Opcode.ARETURN || c == Opcode.IRETURN
+                    || c == Opcode.FRETURN || c == Opcode.LRETURN
+                    || c == Opcode.DRETURN || c == Opcode.RETURN) && pos > lastReturnPosition) {
+                    if (redundant) {
+                        iterator.setMark2(handlerPos);
+                        Bytecode bcode;
+                        Javac jvc;
+                        int retVarNo;
+                        if (noReturn) {
+                            noReturn = false;
+                            bcode = b;
+                            jvc = jv;
+                            retVarNo = varNo;
+                        }
+                        else {
+                            bcode = new Bytecode(pool, 0, retAddr + 1);
+                            bcode.setStackDepth(ca.getMaxStack() + 1);
+                            jvc = new Javac(bcode, cc);
+                            int nvars2 = jvc.recordParams(getParameterTypes(),
+                                    Modifier.isStatic(getModifiers()));
+                            jvc.recordParamNames(ca, nvars2);
+                            retVarNo = jvc.recordReturnType(rtype, true);
+                            jvc.recordLocalVariables(ca, 0);
+                        }
+
+                        int adviceLen2 = insertAfterAdvice(bcode, jvc, src, pool, rtype, retVarNo);
+                        int offset = iterator.append(bcode.get());
+                        iterator.append(bcode.getExceptionTable(), offset);
+                        int advicePos2 = iterator.getCodeLength() - adviceLen2;
+                        insertGoto(iterator, advicePos2, pos);
+                        handlerPos = iterator.getMark2();
+                    }
+                    else {
+                        if (noReturn) {
+                            // finally clause for normal termination
+                            adviceLen = insertAfterAdvice(b, jv, src, pool, rtype, varNo);
+                            handlerPos = iterator.append(b.get());
+                            iterator.append(b.getExceptionTable(), handlerPos);
+                            advicePos = iterator.getCodeLength() - adviceLen;
+                            handlerLen = advicePos - handlerPos;
+                            noReturn = false;
+                        }
+
+                        insertGoto(iterator, advicePos, pos);
+                        advicePos = iterator.getCodeLength() - adviceLen;
+                        handlerPos = advicePos - handlerLen;
+                    }
+                }
+            }
+
+            if (noReturn) {
+                handlerPos = iterator.append(b.get());
+                iterator.append(b.getExceptionTable(), handlerPos);
+            }
+
+            ca.setMaxStack(b.getMaxStack());
+            ca.setMaxLocals(b.getMaxLocals());
+            methodInfo.rebuildStackMapIf6(cc.getClassPool(), cc.getClassFile2());
+        }
+        catch (NotFoundException e) {
+            throw new CannotCompileException(e);
+        }
+        catch (CompileError e) {
+            throw new CannotCompileException(e);
+        }
+        catch (BadBytecode e) {
+            throw new CannotCompileException(e);
+        }
+    }
+
+    public static boolean isCoroutineLabelSwitch(CtClass declaringClass, MethodInfo method, CodeIterator iterator, int previousPos) {
+        if (previousPos != -1 && iterator.byteAt(previousPos) == Opcode.GETFIELD) {
+            ConstPool pool = method.getConstPool();
+            int index = iterator.u16bitAt(previousPos + 1);
+            String className = pool.getFieldrefClassName(index);
+            String fieldName = pool.getFieldrefName(index);
+            String fieldType = pool.getFieldrefType(index);
+
+            String classQualifier = declaringClass.getName() + "$" + method.getName();
+            return className != null && className.startsWith(classQualifier) && "label".equals(fieldName) && "I".equals(
+                    fieldType);
+        }
+        return false;
+    }
+
+    private int getLastSwitchTableBranchPosition(CodeAttribute codeAttribute, int handlerPos) throws BadBytecode {
+        CodeIterator iterator = codeAttribute.iterator();
+        int lastPos = -1;
+        int prevPosition = -1;
+        while(iterator.hasNext()) {
+            int pos = iterator.next();
+            if (pos >= handlerPos)
+                break;
+
+            int byteCode = iterator.byteAt(pos);
+            if (byteCode == Opcode.TABLESWITCH && isCoroutineLabelSwitch(declaringClass, methodInfo, iterator, prevPosition)) {
+                int index = (pos & ~3) + 4;
+                int low = iterator.s32bitAt(index += 4);
+                int high = iterator.s32bitAt(index += 4);
+                int end = (high - low + 1) * 4 + index + 4;
+                lastPos = iterator.s32bitAt(end - 4) + pos;
+            }
+            prevPosition = pos;
+        }
+        return lastPos;
     }
 
     private int insertAfterAdvice(Bytecode code, Javac jv, String src,
@@ -1300,6 +1446,48 @@ public abstract class CtBehavior extends CtMember {
             iterator.insert(b.getExceptionTable(), index);
             methodInfo.rebuildStackMapIf6(cc.getClassPool(), cc.getClassFile2());
             return lineNum;
+        }
+        catch (NotFoundException e) {
+            throw new CannotCompileException(e);
+        }
+        catch (CompileError e) {
+            throw new CannotCompileException(e);
+        }
+        catch (BadBytecode e) {
+            throw new CannotCompileException(e);
+        }
+    }
+
+    public void insertAtPoisition(int position, String src) throws CannotCompileException {
+        CodeAttribute ca = methodInfo.getCodeAttribute();
+        if (ca == null)
+            throw new CannotCompileException("no method body");
+
+        int index = position;
+        CtClass cc = declaringClass;
+        cc.checkModify();
+        CodeIterator iterator = ca.iterator();
+        Javac jv = new Javac(cc);
+        try {
+            jv.recordLocalVariables(ca, index);
+            jv.recordParams(getParameterTypes(),
+                Modifier.isStatic(getModifiers()));
+            jv.setMaxLocals(ca.getMaxLocals());
+            jv.compileStmnt(src);
+            Bytecode b = jv.getBytecode();
+            int locals = b.getMaxLocals();
+            int stack = b.getMaxStack();
+            ca.setMaxLocals(locals);
+
+            /* We assume that there is no values in the operand stack
+             * at the position where the bytecode is inserted.
+             */
+            if (stack > ca.getMaxStack())
+                ca.setMaxStack(stack);
+
+            index = iterator.insertAt(index, b.get());
+            iterator.insert(b.getExceptionTable(), index);
+            methodInfo.rebuildStackMapIf6(cc.getClassPool(), cc.getClassFile2());
         }
         catch (NotFoundException e) {
             throw new CannotCompileException(e);

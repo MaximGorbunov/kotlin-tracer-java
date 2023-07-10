@@ -20,6 +20,7 @@ import io.inst.javassist.CtMethod;
 import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.CodeIterator;
+import io.inst.javassist.convert.TransformBefore;
 
 public class TransformAfter extends TransformBefore {
     public TransformAfter(Transformer next,

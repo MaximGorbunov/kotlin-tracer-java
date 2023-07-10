@@ -16,6 +16,9 @@
 
 package io.inst.javassist.compiler;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.inst.javassist.CannotCompileException;
 import io.inst.javassist.ClassPool;
 import io.inst.javassist.CtClass;
@@ -29,8 +32,6 @@ import io.inst.javassist.bytecode.ExceptionsAttribute;
 import io.inst.javassist.bytecode.FieldInfo;
 import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.SyntheticAttribute;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * AccessorMaker maintains accessors to private members of an enclosing

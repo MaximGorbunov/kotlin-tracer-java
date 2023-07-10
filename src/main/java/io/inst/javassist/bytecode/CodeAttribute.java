@@ -22,6 +22,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import io.inst.javassist.bytecode.ExceptionTable;
+import io.inst.javassist.bytecode.LocalVariableAttribute;
+import io.inst.javassist.bytecode.LocalVariableTypeAttribute;
+import io.inst.javassist.bytecode.StackMapTable;
 
 /**
  * <code>Code_attribute</code>.
@@ -113,7 +117,7 @@ public class CodeAttribute extends AttributeInfo implements Opcode {
         attributes = new ArrayList<AttributeInfo>();
         int num = in.readUnsignedShort();
         for (int i = 0; i < num; ++i)
-            attributes.add(read(cp, in));
+            attributes.add(AttributeInfo.read(cp, in));
     }
 
     /**
@@ -166,7 +170,7 @@ public class CodeAttribute extends AttributeInfo implements Opcode {
     @Override
     public int length() {
         return 18 + info.length + exceptions.size() * 8
-               + getLength(attributes);
+               + AttributeInfo.getLength(attributes);
     }
 
     @Override
@@ -179,7 +183,7 @@ public class CodeAttribute extends AttributeInfo implements Opcode {
         out.write(info);                // code
         exceptions.write(out);
         out.writeShort(attributes.size());      // attributes_count
-        writeAll(attributes, out);        // attributes
+        AttributeInfo.writeAll(attributes, out);        // attributes
     }
 
     /**
@@ -204,17 +208,17 @@ public class CodeAttribute extends AttributeInfo implements Opcode {
 
     @Override
     void renameClass(String oldname, String newname) {
-        renameClass(attributes, oldname, newname);
+        AttributeInfo.renameClass(attributes, oldname, newname);
     }
 
     @Override
     void renameClass(Map<String,String> classnames) {
-        renameClass(attributes, classnames);
+        AttributeInfo.renameClass(attributes, classnames);
     }
 
     @Override
     void getRefClasses(Map<String,String> classnames) {
-        getRefClasses(attributes, classnames);
+        AttributeInfo.getRefClasses(attributes, classnames);
     }
 
     /**
@@ -315,7 +319,7 @@ public class CodeAttribute extends AttributeInfo implements Opcode {
      * @return          an <code>AttributeInfo</code> object or null.
      */
     public AttributeInfo getAttribute(String name) {
-        return lookup(attributes, name);
+        return AttributeInfo.lookup(attributes, name);
     }
 
     /**
@@ -327,7 +331,7 @@ public class CodeAttribute extends AttributeInfo implements Opcode {
      *                  Only the old stack map is removed.
      */
     public void setAttribute(StackMapTable smt) {
-        remove(attributes, StackMapTable.tag);
+        AttributeInfo.remove(attributes, StackMapTable.tag);
         if (smt != null)
             attributes.add(smt);
     }
@@ -342,7 +346,7 @@ public class CodeAttribute extends AttributeInfo implements Opcode {
      * @since 3.12
      */
     public void setAttribute(StackMap sm) {
-        remove(attributes, StackMap.tag);
+        AttributeInfo.remove(attributes, StackMap.tag);
         if (sm != null)
             attributes.add(sm);
     }

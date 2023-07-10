@@ -16,13 +16,6 @@
 
 package io.inst.javassist;
 
-import io.inst.javassist.bytecode.AttributeInfo;
-import io.inst.javassist.bytecode.ClassFile;
-import io.inst.javassist.bytecode.Descriptor;
-import io.inst.javassist.bytecode.Opcode;
-import io.inst.javassist.bytecode.SignatureAttribute;
-import io.inst.javassist.compiler.AccessorMaker;
-import io.inst.javassist.expr.ExprEditor;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -34,12 +27,29 @@ import java.net.URL;
 import java.security.ProtectionDomain;
 import java.util.Collection;
 
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.ClassMap;
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.CodeConverter;
+import io.inst.javassist.CtBehavior;
+import io.inst.javassist.CtConstructor;
+import io.inst.javassist.CtField;
+import io.inst.javassist.CtMember;
+import io.inst.javassist.CtMethod;
+import io.inst.javassist.CtPrimitiveType;
+import io.inst.javassist.Modifier;
+import io.inst.javassist.NotFoundException;
+import io.inst.javassist.bytecode.ClassFile;
+import io.inst.javassist.bytecode.Descriptor;
+import io.inst.javassist.bytecode.Opcode;
+import io.inst.javassist.expr.ExprEditor;
+
 /* Note:
  *
  * This class is an abstract class and several methods just return null
  * or throw an exception.  Those methods are overridden in subclasses
  * of this class.  Read the source code of CtClassType if you are
- * interested in the implementation of Javassist.
+ * interested in the implementation of io.inst.javassist.
  *
  * Subclasses of CtClass are CtClassType, CtPrimitiveType, and CtArray.
  */
@@ -78,7 +88,7 @@ public abstract class CtClass {
      *
      * <p>The following command invokes this method:
      *
-     * <pre>java -jar javassist.jar</pre>
+     * <pre>java -jar io.inst.javassist.jar</pre>
      */
     public static void main(String[] args) {
         System.out.println("Javassist version " + CtClass.version);
@@ -258,7 +268,7 @@ public abstract class CtClass {
     /**
      * Undocumented method.  Do not use; internal-use only.
      */
-    public AccessorMaker getAccessorMaker() {
+    public io.inst.javassist.compiler.AccessorMaker getAccessorMaker() {
         return null;
     }
 
@@ -407,7 +417,7 @@ public abstract class CtClass {
      * to a class file.
      *
      * @return null if the generic signature is not included.
-     * @see SignatureAttribute#toClassSignature(String)
+     * @see io.inst.javassist.bytecode.SignatureAttribute#toClassSignature(String)
      * @see CtMember#getGenericSignature()
      * @since 3.17
      */
@@ -478,8 +488,8 @@ public abstract class CtClass {
      * of The Java Virtual Machine Specification (Java SE 8).
      *
      * @param sig       a generic signature.
-     * @see SignatureAttribute.ClassSignature#encode()
-     * @see SignatureAttribute.MethodSignature#encode()
+     * @see io.inst.javassist.bytecode.SignatureAttribute.ClassSignature#encode()
+     * @see io.inst.javassist.bytecode.SignatureAttribute.MethodSignature#encode()
      * @see CtMember#setGenericSignature(String)
      * @since 3.17
      */
@@ -1202,7 +1212,7 @@ public abstract class CtClass {
      * </pre>
      *
      * @param name              attribute name
-     * @see AttributeInfo
+     * @see io.inst.javassist.bytecode.AttributeInfo
      */
     public byte[] getAttribute(String name) {
         return null;
@@ -1228,7 +1238,7 @@ public abstract class CtClass {
      *
      * @param name      attribute name
      * @param data      attribute value
-     * @see AttributeInfo
+     * @see io.inst.javassist.bytecode.AttributeInfo
      */
     public void setAttribute(String name, byte[] data) {
         checkModify();
@@ -1275,8 +1285,8 @@ public abstract class CtClass {
      * print a warning message:</p>
      * <blockquote><pre>
      * WARNING: An illegal reflective access operation has occurred
-     * WARNING: Illegal reflective access by javassist.util.proxy.SecurityActions$3 ...
-     * WARNING: Please consider reporting this to the maintainers of javassist.util.proxy.SecurityActions$3
+     * WARNING: Illegal reflective access by io.inst.javassist.util.proxy.SecurityActions$3 ...
+     * WARNING: Please consider reporting this to the maintainers of io.inst.javassist.util.proxy.SecurityActions$3
      * WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
      * WARNING: All illegal access operations will be denied in a future release
      * </pre></blockquote>

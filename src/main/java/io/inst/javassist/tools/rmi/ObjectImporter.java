@@ -16,7 +16,6 @@
 
 package io.inst.javassist.tools.rmi;
 
-import io.inst.javassist.tools.web.Viewer;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -27,6 +26,8 @@ import java.io.OutputStream;
 import java.lang.reflect.Constructor;
 import java.net.Socket;
 import java.net.URL;
+import io.inst.javassist.tools.rmi.ObjectNotFoundException;
+import io.inst.javassist.tools.rmi.RemoteException;
 
 /**
  * The object importer enables applets to call a method on a remote
@@ -77,7 +78,7 @@ import java.net.URL;
  *
  * @see AppletServer
  * @see RemoteException
- * @see Viewer
+ * @see io.inst.javassist.tools.web.Viewer
  */
 public class ObjectImporter implements java.io.Serializable {
     /** default serialVersionUID */
@@ -115,7 +116,7 @@ public class ObjectImporter implements java.io.Serializable {
      * ObjectImporter oi = new ObjectImporter(v.getServer(), v.getPort());
      * </pre>
      *
-     * @see Viewer
+     * @see io.inst.javassist.tools.web.Viewer
      */
     public ObjectImporter(String servername, int port) {
         this.orgServername = this.servername = servername;

@@ -22,6 +22,8 @@ import io.inst.javassist.bytecode.ByteArray;
 import io.inst.javassist.bytecode.ConstPool;
 import io.inst.javassist.bytecode.Descriptor;
 import io.inst.javassist.bytecode.Opcode;
+import io.inst.javassist.bytecode.stackmap.TypeData;
+import io.inst.javassist.bytecode.stackmap.TypeTag;
 
 /*
  * A class for performing abstract interpretation.

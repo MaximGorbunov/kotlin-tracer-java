@@ -16,12 +16,16 @@
 
 package io.inst.javassist.bytecode.annotation;
 
-import io.inst.javassist.ClassPool;
-import io.inst.javassist.bytecode.ConstPool;
-import io.inst.javassist.bytecode.Descriptor;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Map;
+
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.bytecode.ConstPool;
+import io.inst.javassist.bytecode.Descriptor;
+import io.inst.javassist.bytecode.annotation.AnnotationsWriter;
+import io.inst.javassist.bytecode.annotation.MemberValueVisitor;
+import io.inst.javassist.bytecode.annotation.NoSuchClassError;
 
 /**
  * The value of a member declared in an annotation.

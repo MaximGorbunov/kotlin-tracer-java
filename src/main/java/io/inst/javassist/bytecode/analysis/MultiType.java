@@ -15,9 +15,10 @@
  */
 package io.inst.javassist.bytecode.analysis;
 
-import io.inst.javassist.CtClass;
 import java.util.HashMap;
 import java.util.Map;
+
+import io.inst.javassist.CtClass;
 
 /**
  * MultiType represents an unresolved type. Whenever two {@code Type}

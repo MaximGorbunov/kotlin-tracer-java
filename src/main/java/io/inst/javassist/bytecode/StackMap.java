@@ -16,13 +16,19 @@
 
 package io.inst.javassist.bytecode;
 
-import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.CtBehavior;
-import io.inst.javassist.CtClass;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Map;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.bytecode.AttributeInfo;
+import io.inst.javassist.bytecode.BadBytecode;
+import io.inst.javassist.bytecode.ByteArray;
+import io.inst.javassist.bytecode.CodeIterator;
+import io.inst.javassist.bytecode.ConstPool;
+import io.inst.javassist.bytecode.MethodInfo;
+import io.inst.javassist.bytecode.StackMapTable;
 
 /**
  * Another <code>stack_map</code> attribute defined in CLDC 1.1 for J2ME.
@@ -285,7 +291,7 @@ public class StackMap extends AttributeInfo {
      *                       in a constant pool table.  This should be zero unless the tag
      *                       is <code>ITEM_Object</code>.
      *
-     * @see CtBehavior#addParameter(CtClass)
+     * @see io.inst.javassist.CtBehavior#addParameter(io.inst.javassist.CtClass)
      * @see StackMapTable#typeTagOf(char)
      * @see ConstPool
      */
@@ -446,7 +452,7 @@ public class StackMap extends AttributeInfo {
     /**
      * Undocumented method.  Do not use; internal-use only.
      *
-     * <p>This method is for javassist.convert.TransformNew.
+     * <p>This method is for io.inst.javassist.convert.TransformNew.
      * It is called to update the stack map when
      * the NEW opcode (and the following DUP) is removed.
      *
@@ -545,7 +551,7 @@ public class StackMap extends AttributeInfo {
      * Internal use only.
      */
     public static class Writer {
-        // see javassist.bytecode.stackmap.MapMaker
+        // see io.inst.javassist.bytecode.stackmap.MapMaker
 
         private ByteArrayOutputStream output;
 

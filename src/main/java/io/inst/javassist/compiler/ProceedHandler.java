@@ -17,6 +17,7 @@
 package io.inst.javassist.compiler;
 
 import io.inst.javassist.bytecode.Bytecode;
+import io.inst.javassist.compiler.JvstTypeChecker;
 import io.inst.javassist.compiler.ast.ASTList;
 
 /**

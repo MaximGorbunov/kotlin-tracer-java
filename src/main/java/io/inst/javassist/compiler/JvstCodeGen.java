@@ -22,6 +22,12 @@ import io.inst.javassist.CtPrimitiveType;
 import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.Bytecode;
 import io.inst.javassist.bytecode.Descriptor;
+import io.inst.javassist.compiler.CompileError;
+import io.inst.javassist.compiler.JvstTypeChecker;
+import io.inst.javassist.compiler.MemberCodeGen;
+import io.inst.javassist.compiler.MemberResolver;
+import io.inst.javassist.compiler.ProceedHandler;
+import io.inst.javassist.compiler.SymbolTable;
 import io.inst.javassist.compiler.ast.ASTList;
 import io.inst.javassist.compiler.ast.ASTree;
 import io.inst.javassist.compiler.ast.CallExpr;
@@ -32,7 +38,7 @@ import io.inst.javassist.compiler.ast.Member;
 import io.inst.javassist.compiler.ast.Stmnt;
 import io.inst.javassist.compiler.ast.Symbol;
 
-/* Code generator accepting extended Java syntax for Javassist.
+/* Code generator accepting extended Java syntax for io.inst.javassist.
  */
 
 public class JvstCodeGen extends MemberCodeGen {
@@ -135,9 +141,8 @@ public class JvstCodeGen extends MemberCodeGen {
     }
 
     @Override
-    protected void atFieldAssign(
-            Expr expr, int op, ASTree left,
-            ASTree right, boolean doDup) throws CompileError
+    protected void atFieldAssign(Expr expr, int op, ASTree left,
+                        ASTree right, boolean doDup) throws CompileError
     {
         if (left instanceof Member
             && ((Member)left).get().equals(paramArrayName)) {
@@ -629,13 +634,13 @@ public class JvstCodeGen extends MemberCodeGen {
         code.addIconst(n);                          // iconst_<n>
         code.addAnewarray(javaLangObject);          // anewarray Object
         for (int i = 0; i < n; ++i) {
-            code.addOpcode(DUP);           // dup
+            code.addOpcode(Bytecode.DUP);           // dup
             code.addIconst(i);                      // iconst_<i>
             if (params[i].isPrimitive()) {
                 CtPrimitiveType pt = (CtPrimitiveType)params[i];
                 String wrapper = pt.getWrapperName();
                 code.addNew(wrapper);               // new <wrapper>
-                code.addOpcode(DUP);       // dup
+                code.addOpcode(Bytecode.DUP);       // dup
                 int s = code.addLoad(regno, pt);    // ?load <regno>
                 regno += s;
                 args[0] = pt;
@@ -648,7 +653,7 @@ public class JvstCodeGen extends MemberCodeGen {
                 ++regno;
             }
 
-            code.addOpcode(AASTORE);       // aastore
+            code.addOpcode(Bytecode.AASTORE);       // aastore
         }
 
         return 8;

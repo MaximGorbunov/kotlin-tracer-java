@@ -16,11 +16,6 @@
 
 package io.inst.javassist.tools.web;
 
-import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.ClassPool;
-import io.inst.javassist.CtClass;
-import io.inst.javassist.NotFoundException;
-import io.inst.javassist.Translator;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -33,6 +28,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.CtClass;
+import io.inst.javassist.NotFoundException;
+import io.inst.javassist.Translator;
+import io.inst.javassist.tools.web.BadHttpRequest;
+
 /**
  * A web server for running sample programs.
  *
@@ -43,7 +45,7 @@ import java.util.Date;
  *
  * <p><b>Note:</b> although this class is included in the Javassist API,
  * it is provided as a sample implementation of the web server using
- * Javassist.  Especially, there might be security flaws in this server.
+ * io.inst.javassist.  Especially, there might be security flaws in this server.
  * Please use this with YOUR OWN RISK.
  */
 public class Webserver {
@@ -94,7 +96,7 @@ public class Webserver {
         }
         else
             System.err.println(
-                        "Usage: java javassist.tools.web.Webserver <port number>");
+                        "Usage: java io.inst.javassist.tools.web.Webserver <port number>");
     }
 
     /**

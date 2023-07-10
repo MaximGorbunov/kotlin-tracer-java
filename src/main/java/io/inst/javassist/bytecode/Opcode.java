@@ -16,6 +16,8 @@
 
 package io.inst.javassist.bytecode;
 
+import io.inst.javassist.bytecode.Mnemonic;
+
 /**
  * JVM Instruction Set.
  *

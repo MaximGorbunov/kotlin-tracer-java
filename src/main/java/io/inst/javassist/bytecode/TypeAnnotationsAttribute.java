@@ -1,10 +1,11 @@
 package io.inst.javassist.bytecode;
 
-import io.inst.javassist.bytecode.annotation.TypeAnnotationsWriter;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import io.inst.javassist.bytecode.annotation.TypeAnnotationsWriter;
 
 /**
  * A class representing

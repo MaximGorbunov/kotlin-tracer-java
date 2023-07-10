@@ -16,6 +16,11 @@
 
 package io.inst.javassist.compiler;
 
+import io.inst.javassist.compiler.CodeGen;
+import io.inst.javassist.compiler.CompileError;
+import io.inst.javassist.compiler.SymbolTable;
+import io.inst.javassist.compiler.SyntaxError;
+import io.inst.javassist.compiler.TokenId;
 import io.inst.javassist.compiler.ast.ASTList;
 import io.inst.javassist.compiler.ast.ASTree;
 import io.inst.javassist.compiler.ast.ArrayInit;
@@ -93,7 +98,7 @@ public final class Parser implements TokenId {
      *    [ "=" expression ] ";"
      */
     private FieldDecl parseField(SymbolTable tbl, ASTList mods,
-                                 Declarator d) throws CompileError
+                                Declarator d) throws CompileError
     {
         ASTree expr = null;
         if (lex.lookAhead() == '=') {

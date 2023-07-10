@@ -17,6 +17,18 @@
 package io.inst.javassist.compiler.ast;
 
 import io.inst.javassist.compiler.CompileError;
+import io.inst.javassist.compiler.ast.ArrayInit;
+import io.inst.javassist.compiler.ast.AssignExpr;
+import io.inst.javassist.compiler.ast.CallExpr;
+import io.inst.javassist.compiler.ast.CastExpr;
+import io.inst.javassist.compiler.ast.CondExpr;
+import io.inst.javassist.compiler.ast.Declarator;
+import io.inst.javassist.compiler.ast.DoubleConst;
+import io.inst.javassist.compiler.ast.FieldDecl;
+import io.inst.javassist.compiler.ast.InstanceOfExpr;
+import io.inst.javassist.compiler.ast.IntConst;
+import io.inst.javassist.compiler.ast.MethodDecl;
+import io.inst.javassist.compiler.ast.Variable;
 
 /**
  * The visitor pattern.

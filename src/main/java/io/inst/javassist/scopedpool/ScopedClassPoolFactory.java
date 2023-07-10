@@ -17,6 +17,7 @@
 package io.inst.javassist.scopedpool;
 
 import io.inst.javassist.ClassPool;
+import io.inst.javassist.scopedpool.ScopedClassPoolRepository;
 
 /**
  * A factory interface.

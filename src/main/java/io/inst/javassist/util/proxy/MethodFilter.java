@@ -17,6 +17,7 @@
 package io.inst.javassist.util.proxy;
 
 import java.lang.reflect.Method;
+import io.inst.javassist.util.proxy.ProxyFactory;
 
 /**
  * Selector of the methods implemented by a handler.

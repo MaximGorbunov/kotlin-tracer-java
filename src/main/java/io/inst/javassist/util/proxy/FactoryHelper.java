@@ -16,8 +16,6 @@
 
 package io.inst.javassist.util.proxy;
 
-import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.bytecode.ClassFile;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -25,6 +23,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.ProtectionDomain;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.bytecode.ClassFile;
+import io.inst.javassist.util.proxy.DefineClassHelper;
 
 /**
  * A helper class for implementing <code>ProxyFactory</code>.

@@ -16,6 +16,10 @@
 
 package io.inst.javassist;
 
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.CtMethod.ConstParameter;
+import io.inst.javassist.CtNewWrappedMethod;
+import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.AccessFlag;
 import io.inst.javassist.bytecode.Bytecode;
 import io.inst.javassist.bytecode.ConstPool;
@@ -472,7 +476,7 @@ public class CtNewMethod {
                                    String mname,
                                    CtClass[] parameterTypes,
                                    CtClass[] exceptionTypes,
-                                   CtMethod body, CtMethod.ConstParameter constParam,
+                                   CtMethod body, ConstParameter constParam,
                                    CtClass declaring)
         throws CannotCompileException
     {

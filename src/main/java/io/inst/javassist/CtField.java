@@ -16,6 +16,17 @@
 
 package io.inst.javassist;
 
+import java.util.List;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.CodeConverter;
+import io.inst.javassist.CtClassType;
+import io.inst.javassist.CtMember;
+import io.inst.javassist.CtNewMethod;
+import io.inst.javassist.CtNewWrappedMethod;
+import io.inst.javassist.CtPrimitiveType;
+import io.inst.javassist.Modifier;
+import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.AccessFlag;
 import io.inst.javassist.bytecode.AnnotationsAttribute;
 import io.inst.javassist.bytecode.AttributeInfo;
@@ -32,8 +43,6 @@ import io.inst.javassist.compiler.ast.ASTree;
 import io.inst.javassist.compiler.ast.DoubleConst;
 import io.inst.javassist.compiler.ast.IntConst;
 import io.inst.javassist.compiler.ast.StringL;
-import io.inst.javassist.expr.ExprEditor;
-import java.util.List;
 
 /**
  * An instance of CtField represents a field.
@@ -401,7 +410,7 @@ public class CtField extends CtMember {
      * </p>
      *
      * @see CodeConverter
-     * @see ExprEditor
+     * @see io.inst.javassist.expr.ExprEditor
      */
     public void setType(CtClass clazz) {
         declaringClass.checkModify();

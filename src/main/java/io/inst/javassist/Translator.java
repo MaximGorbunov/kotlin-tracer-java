@@ -16,6 +16,9 @@
 
 package io.inst.javassist;
 
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.NotFoundException;
+
 /**
  * An observer of <code>Loader</code>.
  * The users can define a class implementing this

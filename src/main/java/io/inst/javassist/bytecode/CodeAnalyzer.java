@@ -16,6 +16,10 @@
 
 package io.inst.javassist.bytecode;
 
+import io.inst.javassist.bytecode.CodeAttribute;
+import io.inst.javassist.bytecode.CodeIterator;
+import io.inst.javassist.bytecode.ExceptionTable;
+
 /**
  * Utility for computing <code>max_stack</code>.
  */

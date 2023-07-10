@@ -18,6 +18,8 @@ package io.inst.javassist;
 
 import java.io.InputStream;
 import java.net.URL;
+import io.inst.javassist.LoaderClassPath;
+import io.inst.javassist.NotFoundException;
 
 /**
  * A search-path for obtaining a class file
@@ -65,7 +67,7 @@ public class ClassClassPath implements ClassPath {
          *     thisClass = this.getClass();
          *
          * However, this made openClassfile() not search all the system
-         * class paths if javassist.jar is put in jre/lib/ext/
+         * class paths if io.inst.javassist.jar is put in jre/lib/ext/
          * (with JDK1.4).
          */
         this(Object.class);

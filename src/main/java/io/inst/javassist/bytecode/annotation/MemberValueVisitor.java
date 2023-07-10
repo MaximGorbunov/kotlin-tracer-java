@@ -16,6 +16,8 @@
 
 package io.inst.javassist.bytecode.annotation;
 
+import io.inst.javassist.bytecode.annotation.AnnotationMemberValue;
+
 /**
  * Visitor for traversing member values included in an annotation.
  *

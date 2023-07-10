@@ -17,16 +17,17 @@
 package io.inst.javassist.expr;
 
 import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.CodeConverter;
 import io.inst.javassist.CtClass;
-import io.inst.javassist.CtConstructor;
-import io.inst.javassist.CtMethod;
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.CodeAttribute;
 import io.inst.javassist.bytecode.CodeIterator;
 import io.inst.javassist.bytecode.ExceptionTable;
 import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.Opcode;
+import io.inst.javassist.expr.ConstructorCall;
+import io.inst.javassist.expr.FieldAccess;
+import io.inst.javassist.expr.Instanceof;
+import io.inst.javassist.expr.MethodCall;
 
 /**
  * A translator of method bodies.
@@ -67,13 +68,13 @@ import io.inst.javassist.bytecode.Opcode;
  * in <code>MethodCall</code>.
  *
  * @see CtClass#instrument(ExprEditor)
- * @see CtMethod#instrument(ExprEditor)
- * @see CtConstructor#instrument(ExprEditor)
+ * @see io.inst.javassist.CtMethod#instrument(ExprEditor)
+ * @see io.inst.javassist.CtConstructor#instrument(ExprEditor)
  * @see MethodCall
  * @see NewExpr
  * @see FieldAccess
  *
- * @see CodeConverter
+ * @see io.inst.javassist.CodeConverter
  */
 public class ExprEditor {
     /**

@@ -16,11 +16,6 @@
 
 package io.inst.javassist.tools.rmi;
 
-import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.ClassPool;
-import io.inst.javassist.NotFoundException;
-import io.inst.javassist.tools.web.BadHttpRequest;
-import io.inst.javassist.tools.web.Webserver;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +29,13 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.NotFoundException;
+import io.inst.javassist.tools.rmi.StubGenerator;
+import io.inst.javassist.tools.web.BadHttpRequest;
+import io.inst.javassist.tools.web.Webserver;
 
 /**
  * An AppletServer object is a web server that an ObjectImporter

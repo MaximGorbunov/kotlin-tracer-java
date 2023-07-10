@@ -16,17 +16,18 @@
 
 package io.inst.javassist.bytecode.stackmap;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.CodeAttribute;
 import io.inst.javassist.bytecode.CodeIterator;
 import io.inst.javassist.bytecode.ExceptionTable;
 import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.Opcode;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * A basic block is a sequence of bytecode that does not contain jump/branch

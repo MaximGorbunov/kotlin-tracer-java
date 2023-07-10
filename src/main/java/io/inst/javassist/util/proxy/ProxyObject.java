@@ -16,6 +16,9 @@
 
 package io.inst.javassist.util.proxy;
 
+import io.inst.javassist.util.proxy.MethodHandler;
+import io.inst.javassist.util.proxy.ProxyFactory;
+
 /**
  * The interface implemented by proxy classes.
  * This interface is available only if the super class of the proxy object

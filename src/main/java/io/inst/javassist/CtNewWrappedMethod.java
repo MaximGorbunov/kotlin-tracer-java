@@ -16,6 +16,10 @@
 
 package io.inst.javassist;
 
+import java.util.Map;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.CtMethod.ConstParameter;
 import io.inst.javassist.bytecode.AccessFlag;
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.Bytecode;
@@ -23,7 +27,6 @@ import io.inst.javassist.bytecode.ClassFile;
 import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.SyntheticAttribute;
 import io.inst.javassist.compiler.JvstCodeGen;
-import java.util.Map;
 
 class CtNewWrappedMethod {
 
@@ -32,7 +35,7 @@ class CtNewWrappedMethod {
     public static CtMethod wrapped(CtClass returnType, String mname,
                                    CtClass[] parameterTypes,
                                    CtClass[] exceptionTypes,
-                                   CtMethod body, CtMethod.ConstParameter constParam,
+                                   CtMethod body, ConstParameter constParam,
                                    CtClass declaring)
         throws CannotCompileException
     {
@@ -58,7 +61,7 @@ class CtNewWrappedMethod {
                              CtMethod wrappedBody,
                              CtClass[] parameters,
                              CtClass returnType,
-                             CtMethod.ConstParameter cparam)
+                             ConstParameter cparam)
         throws CannotCompileException
     {
         boolean isStatic = Modifier.isStatic(wrappedBody.getModifiers());
@@ -76,7 +79,7 @@ class CtNewWrappedMethod {
     protected static int makeBody0(CtClass clazz, ClassFile classfile,
                                    CtMethod wrappedBody,
                                    boolean isStatic, CtClass[] parameters,
-                                   CtClass returnType, CtMethod.ConstParameter cparam,
+                                   CtClass returnType, ConstParameter cparam,
                                    Bytecode code)
         throws CannotCompileException
     {
@@ -93,7 +96,7 @@ class CtNewWrappedMethod {
         String desc;
         if (cparam == null) {
             stacksize2 = 0;
-            desc = CtMethod.ConstParameter.defaultDescriptor();
+            desc = ConstParameter.defaultDescriptor();
         }
         else {
             stacksize2 = cparam.compile(code);

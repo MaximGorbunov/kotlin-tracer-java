@@ -16,15 +16,14 @@
 
 package io.inst.javassist.bytecode;
 
-import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.CtBehavior;
-import io.inst.javassist.CtClass;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+
+import io.inst.javassist.CannotCompileException;
 
 /**
  * <code>stack_map</code> attribute.
@@ -467,7 +466,7 @@ public class StackMapTable extends AttributeInfo {
      *                       in a constant pool table.  This should be zero unless the tag
      *                       is <code>ITEM_Object</code>.
      *
-     * @see CtBehavior#addParameter(CtClass)
+     * @see io.inst.javassist.CtBehavior#addParameter(io.inst.javassist.CtClass)
      * @see #typeTagOf(char)
      * @see ConstPool
      */
@@ -1031,7 +1030,7 @@ public class StackMapTable extends AttributeInfo {
     /**
      * Undocumented method.  Do not use; internal-use only.
      *
-     * <p>This method is for javassist.convert.TransformNew.
+     * <p>This method is for io.inst.javassist.convert.TransformNew.
      * It is called to update the stack map table when
      * the NEW opcode (and the following DUP) is removed.
      *

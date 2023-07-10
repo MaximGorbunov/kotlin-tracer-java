@@ -16,8 +16,10 @@
 
 package io.inst.javassist.compiler.ast;
 
-import io.inst.javassist.compiler.CompileError;
 import java.io.Serializable;
+
+import io.inst.javassist.compiler.CompileError;
+import io.inst.javassist.compiler.ast.Visitor;
 
 /**
  * Abstract Syntax Tree.  An ASTree object represents a node of

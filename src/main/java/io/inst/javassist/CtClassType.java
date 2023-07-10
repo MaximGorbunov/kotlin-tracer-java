@@ -16,6 +16,27 @@
 
 package io.inst.javassist;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.CodeConverter;
+import io.inst.javassist.CtConstructor;
+import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.AccessFlag;
 import io.inst.javassist.bytecode.AnnotationsAttribute;
 import io.inst.javassist.bytecode.AttributeInfo;
@@ -34,27 +55,10 @@ import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.ParameterAnnotationsAttribute;
 import io.inst.javassist.bytecode.SignatureAttribute;
 import io.inst.javassist.bytecode.annotation.Annotation;
-import io.inst.javassist.bytecode.annotation.AnnotationImpl;
 import io.inst.javassist.compiler.AccessorMaker;
 import io.inst.javassist.compiler.CompileError;
 import io.inst.javassist.compiler.Javac;
 import io.inst.javassist.expr.ExprEditor;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.ref.Reference;
-import java.lang.ref.WeakReference;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Class<?> types.
@@ -244,7 +248,7 @@ class CtClassType extends CtClass {
 
    /* Inherited from CtClass.  Called by get() in ClassPool.
     *
-    * @see javassist.CtClass#incGetCounter()
+    * @see io.inst.javassist.CtClass#incGetCounter()
     * @see #toBytecode(DataOutputStream)
     */
     @Override
@@ -791,7 +795,7 @@ class CtClassType extends CtClass {
             catch (ClassNotFoundException e2){
                 try {
                     Class<?> clazz = cp.get(anno.getTypeName()).toClass();
-                    return AnnotationImpl.make(
+                    return io.inst.javassist.bytecode.annotation.AnnotationImpl.make(
                                             clazz.getClassLoader(),
                                             clazz, cp, anno);
                 }

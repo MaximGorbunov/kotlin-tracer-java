@@ -16,14 +16,14 @@
 
 package io.inst.javassist.bytecode;
 
-import io.inst.javassist.CtClass;
-import io.inst.javassist.bytecode.annotation.Annotation;
-import io.inst.javassist.bytecode.annotation.AnnotationsWriter;
-import io.inst.javassist.bytecode.annotation.MemberValue;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Map;
+
+import io.inst.javassist.CtClass;
+import io.inst.javassist.bytecode.annotation.AnnotationsWriter;
+import io.inst.javassist.bytecode.annotation.MemberValue;
 
 /**
  * A class representing <code>AnnotationDefault_attribute</code>.
@@ -157,7 +157,7 @@ public class AnnotationDefaultAttribute extends AttributeInfo {
      * Changes the default value represented by this attribute.
      *
      * @param value         the new value.
-     * @see Annotation#createMemberValue(ConstPool, CtClass)
+     * @see io.inst.javassist.bytecode.annotation.Annotation#createMemberValue(ConstPool, CtClass)
      */
     public void setDefaultValue(MemberValue value) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();

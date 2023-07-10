@@ -16,6 +16,10 @@
 
 package io.inst.javassist.tools.rmi;
 
+import java.lang.reflect.Method;
+import java.util.Hashtable;
+import java.util.Map;
+
 import io.inst.javassist.CannotCompileException;
 import io.inst.javassist.ClassPool;
 import io.inst.javassist.CtClass;
@@ -28,9 +32,6 @@ import io.inst.javassist.CtNewMethod;
 import io.inst.javassist.Modifier;
 import io.inst.javassist.NotFoundException;
 import io.inst.javassist.Translator;
-import java.lang.reflect.Method;
-import java.util.Hashtable;
-import java.util.Map;
 
 /**
  * A stub-code generator.  It is used for producing a proxy class.
@@ -75,7 +76,7 @@ public class StubGenerator implements Translator {
 
     /**
      * Initializes the object.
-     * This is a method declared in javassist.Translator.
+     * This is a method declared in io.inst.javassist.Translator.
      *
      * @see Translator#start(ClassPool)
      */
@@ -98,7 +99,7 @@ public class StubGenerator implements Translator {
 
     /**
      * Does nothing.
-     * This is a method declared in javassist.Translator.
+     * This is a method declared in io.inst.javassist.Translator.
      * @see Translator#onLoad(ClassPool,String)
      */
     @Override

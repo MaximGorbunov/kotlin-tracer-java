@@ -16,6 +16,8 @@
 
 package io.inst.javassist;
 
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.CodeAttribute;
 import io.inst.javassist.bytecode.CodeIterator;
@@ -32,7 +34,6 @@ import io.inst.javassist.convert.TransformNewClass;
 import io.inst.javassist.convert.TransformReadField;
 import io.inst.javassist.convert.TransformWriteField;
 import io.inst.javassist.convert.Transformer;
-import io.inst.javassist.expr.ExprEditor;
 
 /**
  * Simple translator of method bodies
@@ -60,7 +61,7 @@ import io.inst.javassist.expr.ExprEditor;
  *
  * @see CtClass#instrument(CodeConverter)
  * @see CtMethod#instrument(CodeConverter)
- * @see ExprEditor
+ * @see io.inst.javassist.expr.ExprEditor
  */
 public class CodeConverter {
     protected Transformer transformers = null;

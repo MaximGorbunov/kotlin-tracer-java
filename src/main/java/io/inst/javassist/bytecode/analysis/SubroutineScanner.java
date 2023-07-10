@@ -15,16 +15,17 @@
  */
 package io.inst.javassist.bytecode.analysis;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.CodeAttribute;
 import io.inst.javassist.bytecode.CodeIterator;
 import io.inst.javassist.bytecode.ExceptionTable;
 import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.Opcode;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Discovers the subroutines in a method, and tracks all callers.

@@ -16,11 +16,12 @@
 
 package io.inst.javassist.tools;
 
-import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.CtBehavior;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.CtBehavior;
 
 /**
  * Creates bytecode that when executed calls back to the instance's result method.
@@ -63,7 +64,7 @@ public abstract class Callback {
     public Callback(String src){
         String uuid = UUID.randomUUID().toString();
         callbacks.put(uuid, this);
-        sourceCode = "((javassist.tools.Callback) javassist.tools.Callback.callbacks.get(\""+uuid+"\")).result(new Object[]{"+src+"});";
+        sourceCode = "((io.inst.javassist.tools.Callback) io.inst.javassist.tools.Callback.callbacks.get(\""+uuid+"\")).result(new Object[]{"+src+"});";
     }
 
     /**

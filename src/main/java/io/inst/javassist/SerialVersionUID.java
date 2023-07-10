@@ -16,8 +16,6 @@
 
 package io.inst.javassist;
 
-import io.inst.javassist.bytecode.ClassFile;
-import io.inst.javassist.bytecode.Descriptor;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -26,6 +24,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Comparator;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.NotFoundException;
+import io.inst.javassist.bytecode.ClassFile;
+import io.inst.javassist.bytecode.Descriptor;
 
 /**
  * Utility for calculating serialVersionUIDs for Serializable classes.

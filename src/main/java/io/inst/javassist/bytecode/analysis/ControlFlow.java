@@ -16,13 +16,14 @@
 
 package io.inst.javassist.bytecode.analysis;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.inst.javassist.CtClass;
 import io.inst.javassist.CtMethod;
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.stackmap.BasicBlock;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents the control flow graph of a given method.

@@ -16,6 +16,9 @@
 
 package io.inst.javassist;
 
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.CtNewConstructor;
+import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.Bytecode;
 import io.inst.javassist.bytecode.ClassFile;
@@ -170,7 +173,7 @@ public final class CtConstructor extends CtBehavior {
             int pos, desc;
             int op0 = it.byteAt(it.next());
             return op0 == Opcode.RETURN     // empty static initializer
-                   || (op0 == Opcode.ALOAD_0
+                || (op0 == Opcode.ALOAD_0
                     && it.byteAt(pos = it.next()) == Opcode.INVOKESPECIAL
                     && (desc = cp.isConstructor(getSuperclassName(),
                                                 it.u16bitAt(pos + 1))) != 0

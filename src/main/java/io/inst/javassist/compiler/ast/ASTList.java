@@ -17,6 +17,7 @@
 package io.inst.javassist.compiler.ast;
 
 import io.inst.javassist.compiler.CompileError;
+import io.inst.javassist.compiler.ast.Visitor;
 
 /**
  * A linked list.

@@ -24,6 +24,9 @@ import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.FieldInfo;
 import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.Opcode;
+import io.inst.javassist.compiler.CompileError;
+import io.inst.javassist.compiler.MemberResolver;
+import io.inst.javassist.compiler.NoFieldException;
 import io.inst.javassist.compiler.ast.ASTList;
 import io.inst.javassist.compiler.ast.ASTree;
 import io.inst.javassist.compiler.ast.ArrayInit;
@@ -422,7 +425,7 @@ public class TypeChecker extends Visitor implements Opcode, TokenId {
         left = stripPlusExpr(left);
         right = stripPlusExpr(right);
         ASTree newExpr = null;
-        if (left instanceof io.inst.javassist.compiler.ast.StringL && right instanceof StringL && op == '+')
+        if (left instanceof StringL && right instanceof StringL && op == '+')
             newExpr = new StringL(((StringL)left).get()
                                   + ((StringL)right).get());
         else if (left instanceof IntConst)
@@ -496,7 +499,7 @@ public class TypeChecker extends Visitor implements Opcode, TokenId {
         }
         else if (value instanceof Boolean)
             return new Keyword(((Boolean)value).booleanValue()
-                               ? TRUE : FALSE);
+                               ? TokenId.TRUE : TokenId.FALSE);
         else
             return null;
     }
@@ -918,7 +921,7 @@ public class TypeChecker extends Visitor implements Opcode, TokenId {
                  *
                  * It is impossible to add the following method:
                  *
-                 * String m() { return javassist.CtClass.intType.toString(); }
+                 * String m() { return io.inst.javassist.CtClass.intType.toString(); }
                  *
                  * because javassist is a field name.  However, this is
                  * often inconvenient, this compiler allows it.  The following

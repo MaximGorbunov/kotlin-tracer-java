@@ -16,10 +16,11 @@
 
 package io.inst.javassist.compiler;
 
-import io.inst.javassist.compiler.ast.Declarator;
 import java.util.HashMap;
 
-public final class SymbolTable extends HashMap<String, Declarator> {
+import io.inst.javassist.compiler.ast.Declarator;
+
+public final class SymbolTable extends HashMap<String,Declarator> {
     /** default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private SymbolTable parent;

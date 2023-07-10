@@ -16,6 +16,14 @@
 
 package io.inst.javassist.compiler;
 
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
+
 import io.inst.javassist.ClassPool;
 import io.inst.javassist.CtClass;
 import io.inst.javassist.CtField;
@@ -25,20 +33,14 @@ import io.inst.javassist.bytecode.AccessFlag;
 import io.inst.javassist.bytecode.ClassFile;
 import io.inst.javassist.bytecode.Descriptor;
 import io.inst.javassist.bytecode.MethodInfo;
+import io.inst.javassist.compiler.NoFieldException;
 import io.inst.javassist.compiler.ast.ASTList;
 import io.inst.javassist.compiler.ast.ASTree;
 import io.inst.javassist.compiler.ast.Declarator;
 import io.inst.javassist.compiler.ast.Keyword;
 import io.inst.javassist.compiler.ast.Symbol;
-import java.lang.ref.Reference;
-import java.lang.ref.WeakReference;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
 
-/* Code generator methods depending on javassist.* classes.
+/* Code generator methods depending on io.inst.javassist.* classes.
  */
 public class MemberResolver implements TokenId {
     private ClassPool classPool;

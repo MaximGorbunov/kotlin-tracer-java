@@ -16,15 +16,17 @@
 
 package io.inst.javassist.scopedpool;
 
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
+import java.security.ProtectionDomain;
+import java.util.Map;
 import io.inst.javassist.CannotCompileException;
 import io.inst.javassist.ClassPool;
 import io.inst.javassist.CtClass;
 import io.inst.javassist.LoaderClassPath;
 import io.inst.javassist.NotFoundException;
-import java.lang.ref.Reference;
-import java.lang.ref.WeakReference;
-import java.security.ProtectionDomain;
-import java.util.Map;
+import io.inst.javassist.scopedpool.ScopedClassPoolRepository;
+import io.inst.javassist.scopedpool.SoftValueHashMap;
 
 /**
  * A scoped class pool.

@@ -16,8 +16,6 @@
 
 package io.inst.javassist.bytecode;
 
-import io.inst.javassist.ClassPool;
-import io.inst.javassist.CtClass;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -27,6 +25,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import io.inst.javassist.CtClass;
+import io.inst.javassist.bytecode.Descriptor;
+import io.inst.javassist.bytecode.LongVector;
+import io.inst.javassist.bytecode.MethodInfo;
 
 /**
  * Constant pool table.
@@ -266,7 +269,7 @@ public final class ConstPool
      *          type, this method returns an encoded name like
      *          <code>[Ljava.lang.Object;</code> (note that the separators
      *          are not slashes but dots).
-     * @see ClassPool#getCtClass(String)
+     * @see io.inst.javassist.ClassPool#getCtClass(String)
      */
     public String getClassInfo(int index)
     {
@@ -282,7 +285,7 @@ public final class ConstPool
      *
      * @return  the descriptor of the type specified
      *          by <code>name_index</code>.
-     * @see ClassPool#getCtClass(String)
+     * @see io.inst.javassist.ClassPool#getCtClass(String)
      * @since 3.15
      */
     public String getClassInfoByDescriptor(int index)

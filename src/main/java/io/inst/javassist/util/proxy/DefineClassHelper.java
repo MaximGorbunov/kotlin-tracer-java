@@ -16,14 +16,15 @@
 
 package io.inst.javassist.util.proxy;
 
-import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.bytecode.ClassFile;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.reflect.Method;
 import java.security.ProtectionDomain;
 import java.util.List;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.bytecode.ClassFile;
 
 /**
  * Helper class for invoking {@link ClassLoader#defineClass(String,byte[],int,int)}.

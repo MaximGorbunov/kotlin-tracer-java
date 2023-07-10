@@ -16,11 +16,6 @@
 
 package io.inst.javassist;
 
-import io.inst.javassist.bytecode.ClassFile;
-import io.inst.javassist.bytecode.ConstPool;
-import io.inst.javassist.bytecode.Descriptor;
-import io.inst.javassist.util.proxy.DefineClassHelper;
-import io.inst.javassist.util.proxy.DefinePackageHelper;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +27,17 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.ClassClassPath;
+import io.inst.javassist.ClassPoolTail;
+import io.inst.javassist.CtClassType;
+import io.inst.javassist.CtNewClass;
+import io.inst.javassist.LoaderClassPath;
+import io.inst.javassist.NotFoundException;
+import io.inst.javassist.bytecode.ClassFile;
+import io.inst.javassist.bytecode.Descriptor;
+import io.inst.javassist.util.proxy.DefinePackageHelper;
 
 /**
  * A container of <code>CtClass</code> objects.
@@ -485,7 +491,7 @@ public class ClassPool {
      * @param classname         a fully-qualified class name or a descriptor
      *                          representing an array type.
      * @see #get(String)
-     * @see ConstPool#getClassInfo(int)
+     * @see io.inst.javassist.bytecode.ConstPool#getClassInfo(int)
      * @see Descriptor#toCtClass(String, ClassPool)
      * @since 3.8.1
      */
@@ -1156,7 +1162,7 @@ public class ClassPool {
         throws CannotCompileException
     {
         try {
-            return DefineClassHelper.toClass(neighbor,
+            return io.inst.javassist.util.proxy.DefineClassHelper.toClass(neighbor,
                                                             ct.toBytecode());
         }
         catch (IOException e) {
@@ -1182,7 +1188,7 @@ public class ClassPool {
         throws CannotCompileException
     {
         try {
-            return DefineClassHelper.toClass(lookup,
+            return io.inst.javassist.util.proxy.DefineClassHelper.toClass(lookup,
                                                             ct.toBytecode());
         }
         catch (IOException e) {
@@ -1238,7 +1244,7 @@ public class ClassPool {
             throws CannotCompileException
     {
         try {
-            return DefineClassHelper.toClass(ct.getName(),
+            return io.inst.javassist.util.proxy.DefineClassHelper.toClass(ct.getName(),
                     neighbor, loader, domain, ct.toBytecode());
         }
         catch (IOException e) {

@@ -16,6 +16,13 @@
 
 package io.inst.javassist;
 
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.CtClass;
+import io.inst.javassist.CtConstructor;
+import io.inst.javassist.CtMethod;
+import io.inst.javassist.Modifier;
+import io.inst.javassist.NotFoundException;
+
 /**
  * Array types.
  */

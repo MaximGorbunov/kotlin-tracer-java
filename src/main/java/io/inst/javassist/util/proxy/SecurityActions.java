@@ -15,7 +15,6 @@
  */
 package io.inst.javassist.util.proxy;
 
-import io.inst.javassist.bytecode.ClassFile;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.AccessibleObject;
@@ -31,6 +30,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.inst.javassist.bytecode.ClassFile;
 
 class SecurityActions extends SecurityManager
 {

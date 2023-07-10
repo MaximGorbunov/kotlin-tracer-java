@@ -16,14 +16,12 @@
 
 package io.inst.javassist.runtime;
 
-import io.inst.javassist.CtBehavior;
-
 /**
  * A support class for implementing <code>$cflow</code>.
  * This support class is required at runtime
  * only if <code>$cflow</code> is used.
  *
- * @see CtBehavior#useCflow(String)
+ * @see io.inst.javassist.CtBehavior#useCflow(String)
  */
 public class Cflow extends ThreadLocal<Cflow.Depth> {
     protected static class Depth {

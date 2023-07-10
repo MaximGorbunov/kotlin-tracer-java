@@ -18,6 +18,9 @@ package io.inst.javassist.compiler.ast;
 
 import io.inst.javassist.compiler.CompileError;
 import io.inst.javassist.compiler.TokenId;
+import io.inst.javassist.compiler.ast.ASTList;
+import io.inst.javassist.compiler.ast.ASTree;
+import io.inst.javassist.compiler.ast.Visitor;
 
 /**
  * Statement.

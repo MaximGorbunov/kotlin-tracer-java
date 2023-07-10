@@ -16,19 +16,35 @@
 
 package io.inst.javassist.bytecode.annotation;
 
-import io.inst.javassist.ClassPool;
-import io.inst.javassist.CtClass;
-import io.inst.javassist.CtMethod;
-import io.inst.javassist.NotFoundException;
-import io.inst.javassist.bytecode.AnnotationDefaultAttribute;
-import io.inst.javassist.bytecode.AnnotationsAttribute;
-import io.inst.javassist.bytecode.ConstPool;
-import io.inst.javassist.bytecode.Descriptor;
-import io.inst.javassist.bytecode.ParameterAnnotationsAttribute;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.CtClass;
+import io.inst.javassist.CtMethod;
+import io.inst.javassist.NotFoundException;
+import io.inst.javassist.bytecode.ConstPool;
+import io.inst.javassist.bytecode.Descriptor;
+import io.inst.javassist.bytecode.annotation.AnnotationImpl;
+import io.inst.javassist.bytecode.annotation.AnnotationMemberValue;
+import io.inst.javassist.bytecode.annotation.AnnotationsWriter;
+import io.inst.javassist.bytecode.annotation.ArrayMemberValue;
+import io.inst.javassist.bytecode.annotation.BooleanMemberValue;
+import io.inst.javassist.bytecode.annotation.ByteMemberValue;
+import io.inst.javassist.bytecode.annotation.CharMemberValue;
+import io.inst.javassist.bytecode.annotation.ClassMemberValue;
+import io.inst.javassist.bytecode.annotation.DoubleMemberValue;
+import io.inst.javassist.bytecode.annotation.EnumMemberValue;
+import io.inst.javassist.bytecode.annotation.FloatMemberValue;
+import io.inst.javassist.bytecode.annotation.IntegerMemberValue;
+import io.inst.javassist.bytecode.annotation.LongMemberValue;
+import io.inst.javassist.bytecode.annotation.MemberValue;
+import io.inst.javassist.bytecode.annotation.MemberValueVisitor;
+import io.inst.javassist.bytecode.annotation.NoSuchClassError;
+import io.inst.javassist.bytecode.annotation.ShortMemberValue;
+import io.inst.javassist.bytecode.annotation.StringMemberValue;
 
 /**
  * The <code>annotation</code> structure.
@@ -37,8 +53,8 @@ import java.util.Set;
  * <code>getAnnotations()</code> in <code>AnnotationsAttribute</code>
  * or in <code>ParameterAnnotationsAttribute</code>.
  *
- * @see AnnotationsAttribute#getAnnotations()
- * @see ParameterAnnotationsAttribute#getAnnotations()
+ * @see io.inst.javassist.bytecode.AnnotationsAttribute#getAnnotations()
+ * @see io.inst.javassist.bytecode.ParameterAnnotationsAttribute#getAnnotations()
  * @see MemberValue
  * @see MemberValueVisitor
  * @see AnnotationsWriter
@@ -262,7 +278,7 @@ public class Annotation {
      * @return null if the member cannot be found or if the value is
      * the default value.
      *
-     * @see AnnotationDefaultAttribute
+     * @see io.inst.javassist.bytecode.AnnotationDefaultAttribute
      */
     public MemberValue getMemberValue(String name) {
         if (members == null||members.get(name) == null)

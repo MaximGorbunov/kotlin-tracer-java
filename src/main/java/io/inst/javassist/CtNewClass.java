@@ -16,9 +16,15 @@
 
 package io.inst.javassist;
 
-import io.inst.javassist.bytecode.ClassFile;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.CtClassType;
+import io.inst.javassist.CtConstructor;
+import io.inst.javassist.CtNewConstructor;
+import io.inst.javassist.NotFoundException;
+import io.inst.javassist.bytecode.ClassFile;
 
 class CtNewClass extends CtClassType {
     /* true if the class is an interface.

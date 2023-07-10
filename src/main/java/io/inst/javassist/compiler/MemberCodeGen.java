@@ -16,6 +16,9 @@
 
 package io.inst.javassist.compiler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.inst.javassist.ClassPool;
 import io.inst.javassist.CtClass;
 import io.inst.javassist.CtField;
@@ -30,6 +33,8 @@ import io.inst.javassist.bytecode.Descriptor;
 import io.inst.javassist.bytecode.FieldInfo;
 import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.Opcode;
+import io.inst.javassist.compiler.MemberResolver;
+import io.inst.javassist.compiler.NoFieldException;
 import io.inst.javassist.compiler.ast.ASTList;
 import io.inst.javassist.compiler.ast.ASTree;
 import io.inst.javassist.compiler.ast.ArrayInit;
@@ -43,10 +48,8 @@ import io.inst.javassist.compiler.ast.NewExpr;
 import io.inst.javassist.compiler.ast.Pair;
 import io.inst.javassist.compiler.ast.Stmnt;
 import io.inst.javassist.compiler.ast.Symbol;
-import java.util.ArrayList;
-import java.util.List;
 
-/* Code generator methods depending on javassist.* classes.
+/* Code generator methods depending on io.inst.javassist.* classes.
  */
 public class MemberCodeGen extends CodeGen {
     protected MemberResolver resolver;
@@ -650,7 +653,7 @@ public class MemberCodeGen extends CodeGen {
                 if (declClass.getClassFile().getMajorVersion() < ClassFile.JAVA_8
                         || !isFromSameDeclaringClass(declClass, thisClass)) {
                     desc = getAccessibleConstructor(desc, declClass, minfo);
-                    bytecode.addOpcode(ACONST_NULL); // the last parameter
+                    bytecode.addOpcode(Opcode.ACONST_NULL); // the last parameter
                 }
             }
         }

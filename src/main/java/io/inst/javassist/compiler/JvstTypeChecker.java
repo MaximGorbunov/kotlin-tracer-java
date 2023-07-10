@@ -28,7 +28,7 @@ import io.inst.javassist.compiler.ast.Expr;
 import io.inst.javassist.compiler.ast.Member;
 import io.inst.javassist.compiler.ast.Symbol;
 
-/* Type checker accepting extended Java syntax for Javassist.
+/* Type checker accepting extended Java syntax for io.inst.javassist.
  */
 
 public class JvstTypeChecker extends TypeChecker {

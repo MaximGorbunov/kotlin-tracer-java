@@ -114,20 +114,20 @@ public class AccessFlag {
     }
 
     /**
-     * Converts a javassist.Modifier into
-     * a javassist.bytecode.AccessFlag.
+     * Converts a io.inst.javassist.Modifier into
+     * a io.inst.javassist.bytecode.AccessFlag.
      *
-     * @param modifier          javassist.Modifier
+     * @param modifier          io.inst.javassist.Modifier
      */
     public static int of(int modifier) {
         return modifier;
     }
 
     /**
-     * Converts a javassist.bytecode.AccessFlag
-     * into a javassist.Modifier.
+     * Converts a io.inst.javassist.bytecode.AccessFlag
+     * into a io.inst.javassist.Modifier.
      *
-     * @param accflags          javassist.bytecode.Accessflag
+     * @param accflags          io.inst.javassist.bytecode.Accessflag
      */
     public static int toModifier(int accflags) {
         return accflags;

@@ -16,9 +16,11 @@
 
 package io.inst.javassist.tools.reflect;
 
+import java.io.PrintStream;
+
 import io.inst.javassist.ClassPool;
 import io.inst.javassist.CtClass;
-import java.io.PrintStream;
+import io.inst.javassist.tools.reflect.Reflection;
 
 class CompiledClass {
     public String classname;
@@ -157,7 +159,7 @@ public class Compiler {
     }
 
     private static void help(PrintStream out) {
-        out.println("Usage: java javassist.tools.reflect.Compiler");
+        out.println("Usage: java io.inst.javassist.tools.reflect.Compiler");
         out.println("            (<class> [-m <metaobject>] [-c <class metaobject>])+");
     }
 }

@@ -16,6 +16,9 @@
 
 package io.inst.javassist.compiler;
 
+import io.inst.javassist.compiler.KeywordTable;
+import io.inst.javassist.compiler.TokenId;
+
 class Token {
     public Token next = null;
     public int tokenId;

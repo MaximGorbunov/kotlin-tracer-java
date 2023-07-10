@@ -16,9 +16,13 @@
 
 package io.inst.javassist.bytecode;
 
-import io.inst.javassist.Modifier;
 import java.io.PrintWriter;
 import java.util.List;
+
+import io.inst.javassist.Modifier;
+import io.inst.javassist.bytecode.AnnotationsAttribute;
+import io.inst.javassist.bytecode.ParameterAnnotationsAttribute;
+import io.inst.javassist.bytecode.SignatureAttribute;
 
 /**
  * A utility class for priting the contents of a class file.

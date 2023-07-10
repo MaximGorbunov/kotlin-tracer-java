@@ -30,6 +30,8 @@ import io.inst.javassist.Translator;
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.ClassFile;
 import io.inst.javassist.bytecode.MethodInfo;
+import io.inst.javassist.tools.reflect.CannotReflectException;
+import io.inst.javassist.tools.reflect.ClassMetaobject;
 
 /**
  * The class implementing the behavioral reflection mechanism.

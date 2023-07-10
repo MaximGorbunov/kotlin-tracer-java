@@ -18,6 +18,8 @@ package io.inst.javassist;
 
 import java.io.InputStream;
 import java.net.URL;
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.NotFoundException;
 
 /**
  * <code>ClassPath</code> is an interface implemented by objects

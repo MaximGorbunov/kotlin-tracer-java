@@ -16,6 +16,8 @@
 
 package io.inst.javassist.compiler;
 
+import io.inst.javassist.compiler.CompileError;
+
 public class SyntaxError extends CompileError {
     /** default serialVersionUID */
     private static final long serialVersionUID = 1L;

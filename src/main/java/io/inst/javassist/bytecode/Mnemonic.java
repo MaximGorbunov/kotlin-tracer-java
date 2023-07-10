@@ -19,7 +19,7 @@ package io.inst.javassist.bytecode;
 /**
  * JVM Instruction Names.
  *
- * <p>This interface has been separated from javassist.bytecode.Opcode
+ * <p>This interface has been separated from io.inst.javassist.bytecode.Opcode
  * because typical bytecode translators do not use mnemonics.  If this
  * interface were merged with Opcode, extra memory would be unnecessary
  * consumed.

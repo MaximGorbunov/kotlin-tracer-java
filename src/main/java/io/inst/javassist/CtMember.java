@@ -16,8 +16,10 @@
 
 package io.inst.javassist;
 
-import io.inst.javassist.bytecode.AttributeInfo;
-import io.inst.javassist.bytecode.SignatureAttribute;
+import io.inst.javassist.CtClassType;
+import io.inst.javassist.CtConstructor;
+import io.inst.javassist.CtMethod;
+import io.inst.javassist.Modifier;
 
 /**
  * An instance of <code>CtMember</code> represents a field, a constructor,
@@ -301,8 +303,8 @@ public abstract class CtMember {
     /**
      * Returns the generic signature of the member.
      *
-     * @see SignatureAttribute#toFieldSignature(String)
-     * @see SignatureAttribute#toMethodSignature(String)
+     * @see io.inst.javassist.bytecode.SignatureAttribute#toFieldSignature(String)
+     * @see io.inst.javassist.bytecode.SignatureAttribute#toMethodSignature(String)
      * @see CtClass#getGenericSignature()
      * @since 3.17
      */
@@ -312,8 +314,8 @@ public abstract class CtMember {
      * Sets the generic signature of the member.
      *
      * @param sig   a new generic signature.
-     * @see SignatureAttribute.ObjectType#encode()
-     * @see SignatureAttribute.MethodSignature#encode()
+     * @see io.inst.javassist.bytecode.SignatureAttribute.ObjectType#encode()
+     * @see io.inst.javassist.bytecode.SignatureAttribute.MethodSignature#encode()
      * @see CtClass#setGenericSignature(String)
      * @since 3.17
      */
@@ -326,7 +328,7 @@ public abstract class CtMember {
      *
      * <p>Note that an attribute is a data block specified by
      * the class file format.
-     * See {@link AttributeInfo}.
+     * See {@link io.inst.javassist.bytecode.AttributeInfo}.
      *
      * @param name              attribute name
      */
@@ -337,7 +339,7 @@ public abstract class CtMember {
      *
      * <p>Note that an attribute is a data block specified by
      * the class file format.
-     * See {@link AttributeInfo}.
+     * See {@link io.inst.javassist.bytecode.AttributeInfo}.
      *
      * @param name      attribute name
      * @param data      attribute value

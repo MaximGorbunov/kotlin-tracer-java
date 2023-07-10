@@ -15,8 +15,9 @@
  */
 package io.inst.javassist.bytecode;
 
-import io.inst.javassist.CtMethod;
 import java.io.PrintStream;
+
+import io.inst.javassist.CtMethod;
 
 /**
  * Simple utility class for printing the bytecode instructions of a method.

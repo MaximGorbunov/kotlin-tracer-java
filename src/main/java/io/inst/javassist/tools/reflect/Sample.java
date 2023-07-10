@@ -16,6 +16,10 @@
 
 package io.inst.javassist.tools.reflect;
 
+import io.inst.javassist.tools.reflect.ClassMetaobject;
+import io.inst.javassist.tools.reflect.Metalevel;
+import io.inst.javassist.tools.reflect.Metaobject;
+
 /**
  * A template used for defining a reflective class.
  */

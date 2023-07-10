@@ -16,7 +16,6 @@
 
 package io.inst.javassist;
 
-import io.inst.javassist.bytecode.ClassFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -25,8 +24,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
 
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.ClassPoolTail;
+import io.inst.javassist.CtClass;
+import io.inst.javassist.NotFoundException;
+import io.inst.javassist.Translator;
+import io.inst.javassist.bytecode.ClassFile;
+
 /**
- * The class loader for Javassist.
+ * The class loader for io.inst.javassist.
  *
  * <p>This is a sample class loader using <code>ClassPool</code>.
  * Unlike a regular class loader, this class loader obtains bytecode
@@ -35,7 +42,7 @@ import java.util.Vector;
  * <p>Note that Javassist can be used without this class loader; programmers
  * can define their own versions of class loader.  They can run
  * a program even without any user-defined class loader if that program
- * is statically translated with Javassist.
+ * is statically translated with io.inst.javassist.
  * This class loader is just provided as a utility class.
  *
  * <p>Suppose that an instance of <code>MyTranslator</code> implementing
@@ -45,7 +52,7 @@ import java.util.Vector;
  * should be something like this:
  *
  * <pre>
- * import javassist.*;
+ * import io.inst.javassist.*;
  *
  * public class Main {
  *   public static void main(String[] args) throws Throwable {

@@ -16,6 +16,10 @@
 
 package io.inst.javassist;
 
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.CtMethod.ConstParameter;
+import io.inst.javassist.CtNewWrappedConstructor;
+import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.Bytecode;
 import io.inst.javassist.bytecode.ConstPool;
 import io.inst.javassist.compiler.CompileError;
@@ -305,11 +309,11 @@ public class CtNewConstructor {
      * @param declaring         the class to which the created constructor
      *                          is added.
      *
-     * @see CtNewMethod#wrapped(CtClass,String,CtClass[],CtClass[],CtMethod,CtMethod.ConstParameter,CtClass)
+     * @see CtNewMethod#wrapped(CtClass,String,CtClass[],CtClass[],CtMethod, ConstParameter,CtClass)
      */
     public static CtConstructor make(CtClass[] parameters,
                                      CtClass[] exceptions, int howto,
-                                     CtMethod body, CtMethod.ConstParameter cparam,
+                                     CtMethod body, ConstParameter cparam,
                                      CtClass declaring)
         throws CannotCompileException
     {

@@ -16,6 +16,9 @@
 
 package io.inst.javassist.tools.rmi;
 
+import io.inst.javassist.tools.rmi.ObjectImporter;
+import io.inst.javassist.tools.rmi.RemoteException;
+
 /**
  * A template used for defining a proxy class.
  * The class file of this class is read by the <code>StubGenerator</code>

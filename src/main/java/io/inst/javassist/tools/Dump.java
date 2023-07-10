@@ -16,11 +16,12 @@
 
 package io.inst.javassist.tools;
 
-import io.inst.javassist.bytecode.ClassFile;
-import io.inst.javassist.bytecode.ClassFilePrinter;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
+
+import io.inst.javassist.bytecode.ClassFile;
+import io.inst.javassist.bytecode.ClassFilePrinter;
 
 /**
  * Dump is a tool for viewing the class definition in the given
@@ -28,7 +29,7 @@ import java.io.PrintWriter;
  * the class file is broken.
  *
  * <p>For example,
- * <pre>% java javassist.tools.Dump foo.class</pre>
+ * <pre>% java io.inst.javassist.tools.Dump foo.class</pre>
  *
  * <p>prints the contents of the constant pool and the list of methods
  * and fields.

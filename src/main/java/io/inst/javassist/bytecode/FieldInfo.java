@@ -16,12 +16,17 @@
 
 package io.inst.javassist.bytecode;
 
-import io.inst.javassist.CtField;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import io.inst.javassist.bytecode.AccessFlag;
+import io.inst.javassist.bytecode.AnnotationsAttribute;
+import io.inst.javassist.bytecode.AttributeInfo;
+import io.inst.javassist.bytecode.ConstantAttribute;
+import io.inst.javassist.bytecode.Descriptor;
+import io.inst.javassist.bytecode.SignatureAttribute;
 
 /**
  * <code>field_info</code> structure.
@@ -35,7 +40,7 @@ import java.util.List;
  * cf.addField(f);
  * </pre></blockquote>
  *
- * @see CtField#getFieldInfo()
+ * @see io.inst.javassist.CtField#getFieldInfo()
  */
 public final class FieldInfo {
     ConstPool constPool;

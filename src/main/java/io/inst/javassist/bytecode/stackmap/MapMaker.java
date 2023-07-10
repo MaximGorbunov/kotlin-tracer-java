@@ -16,6 +16,9 @@
 
 package io.inst.javassist.bytecode.stackmap;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.inst.javassist.ClassPool;
 import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.BadBytecode;
@@ -26,8 +29,9 @@ import io.inst.javassist.bytecode.ConstPool;
 import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.StackMap;
 import io.inst.javassist.bytecode.StackMapTable;
-import java.util.ArrayList;
-import java.util.List;
+import io.inst.javassist.bytecode.stackmap.BasicBlock;
+import io.inst.javassist.bytecode.stackmap.TypeData;
+import io.inst.javassist.bytecode.stackmap.TypedBlock;
 
 /**
  * Stack map maker.
@@ -48,7 +52,7 @@ public class MapMaker extends Tracer {
     public static void main1(String className) throws Exception {
         ClassPool cp = ClassPool.getDefault();
         //javassist.CtClass cc = cp.get(className);
-        javassist.CtClass cc = cp.makeClass(new java.io.FileInputStream(className));
+        io.inst.javassist.CtClass cc = cp.makeClass(new java.io.FileInputStream(className));
         System.out.println(className);
         ClassFile cf = cc.getClassFile();
         java.util.List minfos = cf.getMethods();
@@ -65,7 +69,7 @@ public class MapMaker extends Tracer {
     public static void main2(String[] args) throws Exception {
         ClassPool cp = ClassPool.getDefault();
         //javassist.CtClass cc = cp.get(args[1]);
-        javassist.CtClass cc = cp.makeClass(new java.io.FileInputStream(args[1]));
+        io.inst.javassist.CtClass cc = cp.makeClass(new java.io.FileInputStream(args[1]));
         MethodInfo minfo;
         if (args[2].equals("_init_"))
             minfo = cc.getDeclaredConstructors()[0].getMethodInfo();
@@ -325,7 +329,7 @@ public class MapMaker extends Tracer {
     /*
      * Javac may generate an exception handler that catches only the exception
      * thrown within the handler itself.  It is dead code.
-     * See javassist.JvstTest4.testJIRA195().
+     * See io.inst.javassist.JvstTest4.testJIRA195().
      */
 
     private void findDeadCatchers(byte[] code, TypedBlock[] blocks) throws BadBytecode {

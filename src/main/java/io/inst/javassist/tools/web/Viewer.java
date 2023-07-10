@@ -30,7 +30,7 @@ import java.net.URLConnection;
  *
  * <p>To run, you should type:
  *
- * <pre>% java javassist.tools.web.Viewer <i>host port</i> Main arg1, ...</pre>
+ * <pre>% java io.inst.javassist.tools.web.Viewer <i>host port</i> Main arg1, ...</pre>
  *
  * <p>This command calls <code>Main.main()</code> with <code>arg1,...</code>
  * All classes including <code>Main</code> are fetched from
@@ -66,7 +66,7 @@ public class Viewer extends ClassLoader {
         }
         else
             System.err.println(
-        "Usage: java javassist.tools.web.Viewer <host> <port> class [args ...]");
+        "Usage: java io.inst.javassist.tools.web.Viewer <host> <port> class [args ...]");
     }
 
     /**

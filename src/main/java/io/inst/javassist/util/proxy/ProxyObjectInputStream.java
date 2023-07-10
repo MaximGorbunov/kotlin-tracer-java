@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
+import io.inst.javassist.util.proxy.ProxyObjectOutputStream;
 
 /**
  * An input stream class which knows how to deserialize proxies created via {@link ProxyFactory} and

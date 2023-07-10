@@ -16,7 +16,6 @@
 
 package io.inst.javassist;
 
-import io.inst.javassist.bytecode.ClassFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,6 +30,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.ClassClassPath;
+import io.inst.javassist.LoaderClassPath;
+import io.inst.javassist.NotFoundException;
 
 final class ClassPathList {
     ClassPathList next;
@@ -249,7 +252,7 @@ final class ClassPoolTail {
     }
 
     public ClassPath appendSystemPath() {
-        if (ClassFile.MAJOR_VERSION < ClassFile.JAVA_9)
+        if (io.inst.javassist.bytecode.ClassFile.MAJOR_VERSION < io.inst.javassist.bytecode.ClassFile.JAVA_9)
             return appendClassPath(new ClassClassPath());
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         return appendClassPath(new LoaderClassPath(cl));

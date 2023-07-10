@@ -24,6 +24,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import io.inst.javassist.tools.reflect.CannotCreateException;
+import io.inst.javassist.tools.reflect.CannotInvokeException;
 
 /**
  * A runtime class metaobject.

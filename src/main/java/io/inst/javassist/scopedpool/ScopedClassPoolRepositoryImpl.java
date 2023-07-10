@@ -16,13 +16,14 @@
 
 package io.inst.javassist.scopedpool;
 
-import io.inst.javassist.ClassPool;
-import io.inst.javassist.LoaderClassPath;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
+
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.LoaderClassPath;
 
 /**
  * An implementation of <code>ScopedClassPoolRepository</code>.

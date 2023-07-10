@@ -15,11 +15,6 @@
  */
 package io.inst.javassist.util;
 
-import com.sun.tools.attach.VirtualMachine;
-import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.ClassPool;
-import io.inst.javassist.CtClass;
-import io.inst.javassist.NotFoundException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,6 +26,13 @@ import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
+
+import com.sun.tools.attach.VirtualMachine;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.CtClass;
+import io.inst.javassist.NotFoundException;
 
 /**
  * A utility class for dynamically adding a new method
@@ -50,8 +52,8 @@ import java.util.jar.Manifest;
  * For example, the following command creates an agent file named {@code hotswap.jar}.
  *
  * <pre>
- * $ jshell --class-path javassist.jar
- * jshell&gt; javassist.util.HotSwapAgent.createAgentJarFile("hotswap.jar")
+ * $ jshell --class-path io.inst.javassist.jar
+ * jshell&gt; io.inst.javassist.util.HotSwapAgent.createAgentJarFile("hotswap.jar")
  * </pre>
  *
  * <p>Then, run the JVM with the VM argument {@code -javaagent:hotswap.jar}
@@ -63,7 +65,7 @@ import java.util.jar.Manifest;
  * This automated deployment may fail.  If it fails, manually create the hotswap agent
  * and deploy it by {@code -javaagent}.</p>
  *
- * <p>The {@code HotSwapAgent} requires {@code tools.jar} as well as {@code javassist.jar}.</p>
+ * <p>The {@code HotSwapAgent} requires {@code tools.jar} as well as {@code io.inst.javassist.jar}.</p>
  *
  * <p>The idea of this class was given by <a href="https://github.com/alugowski">Adam Lugowski</a>.
  * Shigeru Chiba wrote this class by referring

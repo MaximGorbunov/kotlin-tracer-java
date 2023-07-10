@@ -34,6 +34,7 @@ import io.inst.javassist.compiler.JvstCodeGen;
 import io.inst.javassist.compiler.JvstTypeChecker;
 import io.inst.javassist.compiler.ProceedHandler;
 import io.inst.javassist.compiler.ast.ASTList;
+import io.inst.javassist.expr.Expr;
 
 /**
  * Explicit type cast.

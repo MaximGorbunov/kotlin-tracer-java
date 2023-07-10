@@ -16,6 +16,12 @@
 
 package io.inst.javassist.bytecode.stackmap;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import io.inst.javassist.ClassPool;
 import io.inst.javassist.CtClass;
 import io.inst.javassist.NotFoundException;
@@ -23,11 +29,6 @@ import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.ConstPool;
 import io.inst.javassist.bytecode.Descriptor;
 import io.inst.javassist.bytecode.StackMapTable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 public abstract class TypeData {
     /* Memo:
@@ -525,7 +526,7 @@ public abstract class TypeData {
 
     /**
      * Finds the most specific common super class of the given classes.
-     * This method is a copy from javassist.bytecode.analysis.Type.
+     * This method is a copy from io.inst.javassist.bytecode.analysis.Type.
      */
     public static CtClass commonSuperClass(CtClass one, CtClass two) throws NotFoundException {
         CtClass deep = one;

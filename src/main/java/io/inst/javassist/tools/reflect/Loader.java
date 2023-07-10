@@ -19,6 +19,7 @@ package io.inst.javassist.tools.reflect;
 import io.inst.javassist.CannotCompileException;
 import io.inst.javassist.ClassPool;
 import io.inst.javassist.NotFoundException;
+import io.inst.javassist.tools.reflect.Reflection;
 
 /**
  * A class loader for reflection.
@@ -30,8 +31,8 @@ import io.inst.javassist.NotFoundException;
  * <pre>
  * public class Main {
  *   public static void main(String[] args) throws Throwable {
- *     javassist.tools.reflect.Loader cl
- *         = (javassist.tools.reflect.Loader)Main.class.getClassLoader();
+ *     io.inst.javassist.tools.reflect.Loader cl
+ *         = (io.inst.javassist.tools.reflect.Loader)Main.class.getClassLoader();
  *     cl.makeReflective("Person", "MyMetaobject",
  *                       "javassist.tools.reflect.ClassMetaobject");
  *     cl.run("MyApp", args);
@@ -41,7 +42,7 @@ import io.inst.javassist.NotFoundException;
  *
  * <p>Then run this program as follows:
  *
- * <pre>% java javassist.tools.reflect.Loader Main arg1, ...</pre>
+ * <pre>% java io.inst.javassist.tools.reflect.Loader Main arg1, ...</pre>
  *
  * <p>This command runs <code>Main.main()</code> with <code>arg1</code>, ...
  * and <code>Main.main()</code> runs <code>MyApp.main()</code> with
@@ -55,7 +56,7 @@ import io.inst.javassist.NotFoundException;
  * <pre>
  * public class Main2 {
  *   public static void main(String[] args) throws Throwable {
- *     javassist.tools.reflect.Loader cl = new javassist.tools.reflect.Loader();
+ *     io.inst.javassist.tools.reflect.Loader cl = new io.inst.javassist.tools.reflect.Loader();
  *     cl.makeReflective("Person", "MyMetaobject",
  *                       "javassist.tools.reflect.ClassMetaobject");
  *     cl.run("MyApp", args);
@@ -82,8 +83,8 @@ import io.inst.javassist.NotFoundException;
  * public class Main3 {
  *   public static void main(String[] args) throws Throwable {
  *     Reflection reflection = new Reflection();
- *     javassist.Loader cl
- *         = new javassist.Loader(ClassPool.getDefault(reflection));
+ *     io.inst.javassist.Loader cl
+ *         = new io.inst.javassist.Loader(ClassPool.getDefault(reflection));
  *     reflection.makeReflective("Person", "MyMetaobject",
  *                               "javassist.tools.reflect.ClassMetaobject");
  *     cl.run("MyApp", args);

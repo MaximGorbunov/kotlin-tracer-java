@@ -16,12 +16,11 @@
 
 package io.inst.javassist.bytecode.annotation;
 
-import io.inst.javassist.bytecode.AnnotationsAttribute;
-import io.inst.javassist.bytecode.ByteArray;
-import io.inst.javassist.bytecode.ConstPool;
-import io.inst.javassist.bytecode.ParameterAnnotationsAttribute;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import io.inst.javassist.bytecode.ByteArray;
+import io.inst.javassist.bytecode.ConstPool;
 
 /**
  * A convenience class for constructing a
@@ -56,8 +55,8 @@ import java.io.OutputStream;
  * &nbsp;@Author(name = "chiba", address = "tokyo")
  * </pre>
  *
- * @see AnnotationsAttribute
- * @see ParameterAnnotationsAttribute
+ * @see io.inst.javassist.bytecode.AnnotationsAttribute
+ * @see io.inst.javassist.bytecode.ParameterAnnotationsAttribute
  */
 public class AnnotationsWriter {
     protected OutputStream output;

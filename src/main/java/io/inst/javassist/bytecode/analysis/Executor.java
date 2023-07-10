@@ -24,6 +24,7 @@ import io.inst.javassist.bytecode.ConstPool;
 import io.inst.javassist.bytecode.Descriptor;
 import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.Opcode;
+import io.inst.javassist.bytecode.analysis.Subroutine;
 
 /**
  * Executor is responsible for modeling the effects of a JVM instruction on a frame.

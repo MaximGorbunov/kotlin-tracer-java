@@ -16,6 +16,9 @@
 
 package io.inst.javassist.tools.reflect;
 
+import io.inst.javassist.tools.reflect.ClassMetaobject;
+import io.inst.javassist.tools.reflect.Metaobject;
+
 /**
  * An interface to access a metaobject and a class metaobject.
  * This interface is implicitly implemented by the reflective

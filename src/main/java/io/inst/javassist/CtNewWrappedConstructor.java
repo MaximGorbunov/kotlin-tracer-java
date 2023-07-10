@@ -16,6 +16,7 @@
 
 package io.inst.javassist;
 
+import io.inst.javassist.CtMethod.ConstParameter;
 import io.inst.javassist.bytecode.Bytecode;
 import io.inst.javassist.bytecode.ClassFile;
 import io.inst.javassist.bytecode.Descriptor;
@@ -29,7 +30,7 @@ class CtNewWrappedConstructor extends CtNewWrappedMethod {
                                         CtClass[] exceptionTypes,
                                         int howToCallSuper,
                                         CtMethod body,
-                                        CtMethod.ConstParameter constParam,
+                                        ConstParameter constParam,
                                         CtClass declaring)
         throws CannotCompileException
     {
@@ -52,7 +53,7 @@ class CtNewWrappedConstructor extends CtNewWrappedMethod {
                                        int howToCallSuper,
                                        CtMethod wrappedBody,
                                        CtClass[] parameters,
-                                       CtMethod.ConstParameter cparam)
+                                       ConstParameter cparam)
         throws CannotCompileException
     {
         int stacksize, stacksize2;
@@ -75,7 +76,7 @@ class CtNewWrappedConstructor extends CtNewWrappedMethod {
             String desc;
             if (cparam == null) {
                 stacksize2 = 2;
-                desc = CtMethod.ConstParameter.defaultConstDescriptor();
+                desc = ConstParameter.defaultConstDescriptor();
             }
             else {
                 stacksize2 = cparam.compile(code) + 2;

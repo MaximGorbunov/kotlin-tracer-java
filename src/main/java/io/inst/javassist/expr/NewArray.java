@@ -246,7 +246,7 @@ public class NewArray extends Expr {
         storeStack(params, true, paramVar, bytecode);
         jc.recordLocalVariables(ca, pos);
 
-        bytecode.addOpcode(Opcode.ACONST_NULL);        // initialize $_
+        bytecode.addOpcode(ACONST_NULL);        // initialize $_
         bytecode.addAstore(retVar);
 
         jc.compileStmnt(statement);

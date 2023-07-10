@@ -1,14 +1,14 @@
 package io.inst.javassist.bytecode.annotation;
 
-import io.inst.javassist.bytecode.ConstPool;
-import io.inst.javassist.bytecode.TypeAnnotationsAttribute;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import io.inst.javassist.bytecode.ConstPool;
 
 /**
  * A convenience class for constructing a
  * {@code ..TypeAnnotations_attribute}.
- * See the source code of the {@link TypeAnnotationsAttribute} class.
+ * See the source code of the {@link io.inst.javassist.bytecode.TypeAnnotationsAttribute} class.
  *
  * @since 3.19
  */

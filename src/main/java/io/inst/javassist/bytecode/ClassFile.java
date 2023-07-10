@@ -16,9 +16,6 @@
 
 package io.inst.javassist.bytecode;
 
-import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.ClassPool;
-import io.inst.javassist.CtClass;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -27,6 +24,21 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.bytecode.AccessFlag;
+import io.inst.javassist.bytecode.AnnotationsAttribute;
+import io.inst.javassist.bytecode.AttributeInfo;
+import io.inst.javassist.bytecode.BadBytecode;
+import io.inst.javassist.bytecode.ClassFileWriter;
+import io.inst.javassist.bytecode.ConstPool;
+import io.inst.javassist.bytecode.Descriptor;
+import io.inst.javassist.bytecode.DuplicateMemberException;
+import io.inst.javassist.bytecode.FieldInfo;
+import io.inst.javassist.bytecode.InnerClassesAttribute;
+import io.inst.javassist.bytecode.MethodInfo;
+import io.inst.javassist.bytecode.SignatureAttribute;
+import io.inst.javassist.bytecode.SourceFileAttribute;
 
 /**
  * <code>ClassFile</code> represents a Java <code>.class</code> file, which
@@ -54,8 +66,8 @@ import java.util.Map;
  * @see FieldInfo
  * @see MethodInfo
  * @see ClassFileWriter
- * @see CtClass#getClassFile()
- * @see ClassPool#makeClass(ClassFile)
+ * @see io.inst.javassist.CtClass#getClassFile()
+ * @see io.inst.javassist.ClassPool#makeClass(ClassFile)
  */
 public final class ClassFile {
     int major, minor; // version number

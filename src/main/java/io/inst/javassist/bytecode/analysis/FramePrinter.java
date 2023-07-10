@@ -15,6 +15,8 @@
  */
 package io.inst.javassist.bytecode.analysis;
 
+import java.io.PrintStream;
+
 import io.inst.javassist.CtClass;
 import io.inst.javassist.CtMethod;
 import io.inst.javassist.Modifier;
@@ -26,7 +28,6 @@ import io.inst.javassist.bytecode.ConstPool;
 import io.inst.javassist.bytecode.Descriptor;
 import io.inst.javassist.bytecode.InstructionPrinter;
 import io.inst.javassist.bytecode.MethodInfo;
-import java.io.PrintStream;
 
 /**
  * A utility class for printing a merged view of the frame state and the

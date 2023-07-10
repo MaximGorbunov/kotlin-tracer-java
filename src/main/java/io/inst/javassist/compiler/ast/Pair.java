@@ -17,6 +17,8 @@
 package io.inst.javassist.compiler.ast;
 
 import io.inst.javassist.compiler.CompileError;
+import io.inst.javassist.compiler.ast.ASTree;
+import io.inst.javassist.compiler.ast.Visitor;
 
 /**
  * A node of a a binary tree.  This class provides concrete methods

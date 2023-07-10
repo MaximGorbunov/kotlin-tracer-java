@@ -15,16 +15,13 @@
  */
 package io.inst.javassist.bytecode.analysis;
 
+import java.util.*;
+
 import io.inst.javassist.ClassPool;
 import io.inst.javassist.CtClass;
 import io.inst.javassist.NotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.IdentityHashMap;
-import java.util.Iterator;
-import java.util.Map;
+import io.inst.javassist.bytecode.analysis.MultiArrayType;
+import io.inst.javassist.bytecode.analysis.MultiType;
 
 /**
  * Represents a JVM type in data-flow analysis. This abstraction is necessary since

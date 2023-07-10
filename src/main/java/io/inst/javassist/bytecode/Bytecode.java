@@ -18,6 +18,10 @@ package io.inst.javassist.bytecode;
 
 import io.inst.javassist.CtClass;
 import io.inst.javassist.CtPrimitiveType;
+import io.inst.javassist.bytecode.CodeAttribute;
+import io.inst.javassist.bytecode.ConstPool;
+import io.inst.javassist.bytecode.Descriptor;
+import io.inst.javassist.bytecode.ExceptionTable;
 
 class ByteVector implements Cloneable {
     private byte[] buffer;

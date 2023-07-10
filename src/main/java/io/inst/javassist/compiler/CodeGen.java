@@ -16,8 +16,16 @@
 
 package io.inst.javassist.compiler;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import io.inst.javassist.bytecode.Bytecode;
 import io.inst.javassist.bytecode.Opcode;
+import io.inst.javassist.compiler.CompileError;
+import io.inst.javassist.compiler.MemberResolver;
+import io.inst.javassist.compiler.TokenId;
+import io.inst.javassist.compiler.TypeChecker;
 import io.inst.javassist.compiler.ast.ASTList;
 import io.inst.javassist.compiler.ast.ASTree;
 import io.inst.javassist.compiler.ast.ArrayInit;
@@ -42,9 +50,6 @@ import io.inst.javassist.compiler.ast.StringL;
 import io.inst.javassist.compiler.ast.Symbol;
 import io.inst.javassist.compiler.ast.Variable;
 import io.inst.javassist.compiler.ast.Visitor;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /* The code generator is implemented by three files:
  * CodeGen.java, MemberCodeGen.java, and JvstCodeGen.
@@ -645,7 +650,7 @@ public abstract class CodeGen extends Visitor implements Opcode, TokenId {
     {
         doTypeCheck(expr);
         expr = TypeChecker.stripPlusExpr(expr);
-        if (expr instanceof io.inst.javassist.compiler.ast.StringL) {
+        if (expr instanceof StringL) {
             String label = ((StringL)expr).get();
             bytecode.addAload(tmpVar);
             bytecode.addLdc(label);
@@ -1569,7 +1574,7 @@ public abstract class CodeGen extends Visitor implements Opcode, TokenId {
                 atFieldRead(expr);
         }
         else if (token == MEMBER) {     // field read
-            /* MEMBER ('#') is an extension by Javassist.
+            /* MEMBER ('#') is an extension by io.inst.javassist.
              * The compiler internally uses # for compiling .class
              * expressions such as "int.class".
              */

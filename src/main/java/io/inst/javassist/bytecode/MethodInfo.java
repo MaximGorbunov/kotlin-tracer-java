@@ -16,16 +16,26 @@
 
 package io.inst.javassist.bytecode;
 
-import io.inst.javassist.ClassPool;
-import io.inst.javassist.CtConstructor;
-import io.inst.javassist.CtMethod;
-import io.inst.javassist.bytecode.stackmap.MapMaker;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.bytecode.AnnotationDefaultAttribute;
+import io.inst.javassist.bytecode.AnnotationsAttribute;
+import io.inst.javassist.bytecode.AttributeInfo;
+import io.inst.javassist.bytecode.BadBytecode;
+import io.inst.javassist.bytecode.CodeAttribute;
+import io.inst.javassist.bytecode.CodeIterator;
+import io.inst.javassist.bytecode.ExceptionsAttribute;
+import io.inst.javassist.bytecode.LineNumberAttribute;
+import io.inst.javassist.bytecode.ParameterAnnotationsAttribute;
+import io.inst.javassist.bytecode.SignatureAttribute;
+import io.inst.javassist.bytecode.StackMapTable;
+import io.inst.javassist.bytecode.stackmap.MapMaker;
 
 /**
  * <code>method_info</code> structure.
@@ -51,8 +61,8 @@ import java.util.Map;
  * @see #getCodeAttribute()
  * @see CodeAttribute
  * @see Bytecode
- * @see CtMethod#getMethodInfo()
- * @see CtConstructor#getMethodInfo()
+ * @see io.inst.javassist.CtMethod#getMethodInfo()
+ * @see io.inst.javassist.CtConstructor#getMethodInfo()
  */
 public class MethodInfo {
     ConstPool constPool;

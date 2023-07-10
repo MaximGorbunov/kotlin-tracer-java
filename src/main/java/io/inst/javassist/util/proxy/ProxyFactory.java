@@ -16,22 +16,6 @@
 
 package io.inst.javassist.util.proxy;
 
-import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.CtClass;
-import io.inst.javassist.bytecode.AccessFlag;
-import io.inst.javassist.bytecode.Bytecode;
-import io.inst.javassist.bytecode.ClassFile;
-import io.inst.javassist.bytecode.CodeAttribute;
-import io.inst.javassist.bytecode.ConstPool;
-import io.inst.javassist.bytecode.Descriptor;
-import io.inst.javassist.bytecode.DuplicateMemberException;
-import io.inst.javassist.bytecode.ExceptionsAttribute;
-import io.inst.javassist.bytecode.FieldInfo;
-import io.inst.javassist.bytecode.MethodInfo;
-import io.inst.javassist.bytecode.Opcode;
-import io.inst.javassist.bytecode.SignatureAttribute;
-import io.inst.javassist.bytecode.StackMapTable;
-import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
@@ -51,9 +35,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
+import java.lang.invoke.MethodHandles.Lookup;
+
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.bytecode.AccessFlag;
+import io.inst.javassist.bytecode.Bytecode;
+import io.inst.javassist.bytecode.ClassFile;
+import io.inst.javassist.bytecode.CodeAttribute;
+import io.inst.javassist.bytecode.ConstPool;
+import io.inst.javassist.bytecode.Descriptor;
+import io.inst.javassist.bytecode.DuplicateMemberException;
+import io.inst.javassist.bytecode.ExceptionsAttribute;
+import io.inst.javassist.bytecode.FieldInfo;
+import io.inst.javassist.bytecode.MethodInfo;
+import io.inst.javassist.bytecode.Opcode;
+import io.inst.javassist.bytecode.SignatureAttribute;
+import io.inst.javassist.bytecode.StackMapTable;
+import io.inst.javassist.util.proxy.DefineClassHelper;
+import io.inst.javassist.util.proxy.FactoryHelper;
+import io.inst.javassist.util.proxy.MethodHandler;
+import io.inst.javassist.util.proxy.ProxyObjectInputStream;
+import io.inst.javassist.util.proxy.ProxyObjectOutputStream;
+import io.inst.javassist.util.proxy.RuntimeSupport;
+import io.inst.javassist.util.proxy.SecurityActions;
 
 /*
- * This class is implemented only with the lower-level API of Javassist.
+ * This class is implemented only with the lower-level API of io.inst.javassist.
  * This design decision is for maximizing performance.
  */
 
@@ -141,7 +148,7 @@ import java.util.WeakHashMap;
  * method {@link ProxyFactory#setHandler(MethodHandler)} is called. This method was
  * used to specify a default handler which newly created proxy classes should install
  * when they create their instances. It is only retained to provide backward compatibility
- * with previous releases of javassist. Unfortunately,this legacy behaviour makes caching
+ * with previous releases of io.inst.javassist. Unfortunately,this legacy behaviour makes caching
  * and reuse of proxy classes impossible. The current programming model expects javassist
  * clients to set the handler of a proxy instance explicitly by calling method
  * {@link Proxy#setHandler(MethodHandler)} as shown in the sample code above. New
@@ -460,7 +467,7 @@ public class ProxyFactory {
      * </pre>
      *
      * @param sig   a generic signature.
-     * @see CtClass#setGenericSignature(String)
+     * @see io.inst.javassist.CtClass#setGenericSignature(String)
      * @since 3.26
      */
     public void setGenericSignature(String sig) {

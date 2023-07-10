@@ -16,6 +16,13 @@
 
 package io.inst.javassist.bytecode;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import io.inst.javassist.bytecode.AnnotationDefaultAttribute;
 import io.inst.javassist.bytecode.annotation.Annotation;
 import io.inst.javassist.bytecode.annotation.AnnotationMemberValue;
 import io.inst.javassist.bytecode.annotation.AnnotationsWriter;
@@ -32,11 +39,6 @@ import io.inst.javassist.bytecode.annotation.LongMemberValue;
 import io.inst.javassist.bytecode.annotation.MemberValue;
 import io.inst.javassist.bytecode.annotation.ShortMemberValue;
 import io.inst.javassist.bytecode.annotation.StringMemberValue;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A class representing
@@ -55,7 +57,7 @@ import java.util.Map;
  * <p>For example,
  *
  * <pre>
- * import javassist.bytecode.annotation.Annotation;
+ * import io.inst.javassist.bytecode.annotation.Annotation;
  *    :
  * CtMethod m = ... ;
  * MethodInfo minfo = m.getMethodInfo();

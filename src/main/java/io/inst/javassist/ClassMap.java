@@ -16,8 +16,11 @@
 
 package io.inst.javassist;
 
-import io.inst.javassist.bytecode.Descriptor;
 import java.util.HashMap;
+
+import io.inst.javassist.CtMethod;
+import io.inst.javassist.CtNewMethod;
+import io.inst.javassist.bytecode.Descriptor;
 
 /**
  * A hash table associating class names with different names.

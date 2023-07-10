@@ -16,15 +16,16 @@
 
 package io.inst.javassist.bytecode.annotation;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
 import io.inst.javassist.ClassPool;
 import io.inst.javassist.CtClass;
 import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.AnnotationDefaultAttribute;
 import io.inst.javassist.bytecode.ClassFile;
 import io.inst.javassist.bytecode.MethodInfo;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
 /**
  * Internal-use only.  This is a helper class internally used for implementing

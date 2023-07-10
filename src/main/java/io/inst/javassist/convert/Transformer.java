@@ -17,7 +17,6 @@
 package io.inst.javassist.convert;
 
 import io.inst.javassist.CannotCompileException;
-import io.inst.javassist.CodeConverter;
 import io.inst.javassist.CtClass;
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.CodeAttribute;
@@ -30,7 +29,7 @@ import io.inst.javassist.bytecode.Opcode;
  * Transformer and its subclasses are used for executing
  * code transformation specified by CodeConverter.
  *
- * @see CodeConverter
+ * @see io.inst.javassist.CodeConverter
  */
 public abstract class Transformer implements Opcode {
     private Transformer next;

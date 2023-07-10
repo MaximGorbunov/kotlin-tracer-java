@@ -16,7 +16,6 @@
 
 package io.inst.javassist.bytecode;
 
-import io.inst.javassist.CtClass;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +23,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import io.inst.javassist.CtClass;
 
 /**
  * <code>Signature_attribute</code>.

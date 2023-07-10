@@ -16,6 +16,14 @@
 
 package io.inst.javassist;
 
+import io.inst.javassist.CannotCompileException;
+import io.inst.javassist.CtBehavior;
+import io.inst.javassist.CtNewConstructor;
+import io.inst.javassist.CtNewMethod;
+import io.inst.javassist.CtNewWrappedConstructor;
+import io.inst.javassist.CtNewWrappedMethod;
+import io.inst.javassist.Modifier;
+import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.AccessFlag;
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.Bytecode;

@@ -16,8 +16,9 @@
 
 package io.inst.javassist.scopedpool;
 
-import io.inst.javassist.ClassPool;
 import java.util.Map;
+
+import io.inst.javassist.ClassPool;
 
 /**
  * An interface to <code>ScopedClassPoolRepositoryImpl</code>.

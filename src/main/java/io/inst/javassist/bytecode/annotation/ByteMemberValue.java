@@ -15,10 +15,13 @@
  */
 package io.inst.javassist.bytecode.annotation;
 
-import io.inst.javassist.ClassPool;
-import io.inst.javassist.bytecode.ConstPool;
 import java.io.IOException;
 import java.lang.reflect.Method;
+
+import io.inst.javassist.ClassPool;
+import io.inst.javassist.bytecode.ConstPool;
+import io.inst.javassist.bytecode.annotation.AnnotationsWriter;
+import io.inst.javassist.bytecode.annotation.MemberValueVisitor;
 
 /**
  * Byte constant value.

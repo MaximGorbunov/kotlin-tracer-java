@@ -18,6 +18,8 @@ package io.inst.javassist.compiler.ast;
 
 import io.inst.javassist.CtField;
 import io.inst.javassist.compiler.CompileError;
+import io.inst.javassist.compiler.ast.Symbol;
+import io.inst.javassist.compiler.ast.Visitor;
 
 /**
  * Member name.

@@ -28,6 +28,11 @@ import io.inst.javassist.bytecode.Descriptor;
 import io.inst.javassist.bytecode.ExceptionTable;
 import io.inst.javassist.bytecode.MethodInfo;
 import io.inst.javassist.bytecode.Opcode;
+import io.inst.javassist.bytecode.analysis.Executor;
+import io.inst.javassist.bytecode.analysis.FramePrinter;
+import io.inst.javassist.bytecode.analysis.IntQueue;
+import io.inst.javassist.bytecode.analysis.Subroutine;
+import io.inst.javassist.bytecode.analysis.SubroutineScanner;
 
 /**
  * A data-flow analyzer that determines the type state of the stack and local

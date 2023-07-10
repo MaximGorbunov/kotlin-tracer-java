@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 import java.net.URL;
+import io.inst.javassist.NotFoundException;
 
 /**
  * A class search-path representing a class loader.

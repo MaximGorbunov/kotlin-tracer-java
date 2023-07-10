@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import io.inst.javassist.ClassPoolTail;
 
 /**
  * A class search-path specified with URL (http).
