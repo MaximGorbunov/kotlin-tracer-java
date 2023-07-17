@@ -20,7 +20,6 @@ public class CoroutineInstrumentator {
     private static final ClassPool pool = ClassPool.getDefault();
 
     public static byte[] transformKotlinCoroutines(byte[] clazz) {
-        System.out.println("Inside method");
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(clazz)) {
             CtClass ctClass = pool.makeClass(byteArrayInputStream);
             CtMethod probeCoroutineCreated = ctClass.getDeclaredMethod("probeCoroutineCreated$kotlinx_coroutines_core");
