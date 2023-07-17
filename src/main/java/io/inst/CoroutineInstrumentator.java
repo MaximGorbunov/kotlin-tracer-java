@@ -31,24 +31,24 @@ public class CoroutineInstrumentator {
                                          "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
                                          ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
                                          ".coroutines.CoroutineId.Key);\n" +
-                                         "io.inst.CoroutineInstrumentator.coroutineCreated(coroutineName.getId());";
+                                         "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineCreated(coroutineName.getId());";
             String coroutineSuspendedSrc = "kotlin.coroutines.CoroutineContext context = frame.getContext();\n" +
                                            "kotlinx.coroutines.Job job = (kotlinx.coroutines.Job) context.get((kotlin" +
                                            ".coroutines.CoroutineContext.Key)kotlinx.coroutines.Job.Key);\n" +
                                            "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
                                            ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
                                            ".coroutines.CoroutineId.Key);\n" +
-                                           "io.inst.CoroutineInstrumentator.coroutineSuspend(coroutineName.getId());";
+                                           "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineSuspend(coroutineName.getId());";
             String coroutineResumedSrc = "kotlin.coroutines.CoroutineContext context = frame.getContext();\n" +
                                          "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
                                          ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
                                          ".coroutines.CoroutineId.Key);\n" +
-                                         "io.inst.CoroutineInstrumentator.coroutineResumed(coroutineName.getId());";
+                                         "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineResumed(coroutineName.getId());";
             String coroutineCompletedSrc = "kotlin.coroutines.CoroutineContext context = owner.info.getContext();\n" +
                                            "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
                                            ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
                                            ".coroutines.CoroutineId.Key);\n" +
-                                           "io.inst.CoroutineInstrumentator.coroutineCompleted(coroutineName.getId());";
+                                           "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineCompleted(coroutineName.getId());";
             probeCoroutineCreated.insertBefore(coroutineCreatedSrc);
             probeCoroutineSuspended.insertBefore(coroutineSuspendedSrc);
             probeCoroutineCompleted.insertBefore(coroutineCompletedSrc);
