@@ -8,11 +8,11 @@ import io.inst.javassist.CtMethod;
 import io.inst.javassist.NotFoundException;
 import io.inst.javassist.bytecode.BadBytecode;
 import io.inst.javassist.bytecode.CodeIterator;
-import io.inst.javassist.bytecode.ConstPool;
 import io.inst.javassist.bytecode.Opcode;
 import io.inst.javassist.expr.ExprEditor;
 import io.inst.javassist.expr.MethodCall;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 import static io.inst.javassist.CtBehavior.isCoroutineLabelSwitch;
 
@@ -22,37 +22,59 @@ public class CoroutineInstrumentator {
     public static byte[] transformKotlinCoroutines(byte[] clazz) {
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(clazz)) {
             CtClass ctClass = pool.makeClass(byteArrayInputStream);
-            CtMethod probeCoroutineCreated = ctClass.getDeclaredMethod("probeCoroutineCreated$kotlinx_coroutines_core");
-            CtMethod probeCoroutineResumed = ctClass.getDeclaredMethod("probeCoroutineResumed$kotlinx_coroutines_core");
-            CtMethod probeCoroutineSuspended = ctClass.getDeclaredMethod("probeCoroutineSuspended$kotlinx_coroutines_core");
-            CtMethod probeCoroutineCompleted = ctClass.getDeclaredMethod("access$probeCoroutineCompleted");
             String coroutineCreatedSrc = "kotlin.coroutines.CoroutineContext context = completion.getContext();\n" +
                                          "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
                                          ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
                                          ".coroutines.CoroutineId.Key);\n" +
-                                         "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineCreated(coroutineName.getId());";
+                                         "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineCreated(coroutineName.getId" +
+                                         "());";
             String coroutineSuspendedSrc = "kotlin.coroutines.CoroutineContext context = frame.getContext();\n" +
                                            "kotlinx.coroutines.Job job = (kotlinx.coroutines.Job) context.get((kotlin" +
                                            ".coroutines.CoroutineContext.Key)kotlinx.coroutines.Job.Key);\n" +
                                            "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
                                            ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
                                            ".coroutines.CoroutineId.Key);\n" +
-                                           "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineSuspend(coroutineName.getId());";
+                                           "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineSuspend(coroutineName" +
+                                           ".getId());";
             String coroutineResumedSrc = "kotlin.coroutines.CoroutineContext context = frame.getContext();\n" +
                                          "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
                                          ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
                                          ".coroutines.CoroutineId.Key);\n" +
-                                         "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineResumed(coroutineName.getId());";
+                                         "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineResumed(coroutineName.getId" +
+                                         "());";
             String coroutineCompletedSrc = "kotlin.coroutines.CoroutineContext context = owner.info.getContext();\n" +
                                            "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
                                            ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
                                            ".coroutines.CoroutineId.Key);\n" +
-                                           "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineCompleted(coroutineName.getId());";
+                                           "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineCompleted(coroutineName" +
+                                           ".getId());";
+            transformKotlinCoroutines(ctClass, coroutineSuspendedSrc,
+                    coroutineResumedSrc,
+                    coroutineCompletedSrc,
+                    coroutineCreatedSrc);
+            return ctClass.toBytecode();
+        } catch (IOException | CannotCompileException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void transformKotlinCoroutines(
+            CtClass ctClass,
+            String coroutineCreatedSrc,
+            String coroutineSuspendedSrc,
+            String coroutineResumedSrc,
+            String coroutineCompletedSrc
+    ) {
+        try {
+            CtMethod probeCoroutineCreated = ctClass.getDeclaredMethod("probeCoroutineCreated$kotlinx_coroutines_core");
+            CtMethod probeCoroutineResumed = ctClass.getDeclaredMethod("probeCoroutineResumed$kotlinx_coroutines_core");
+            CtMethod probeCoroutineSuspended = ctClass.getDeclaredMethod("probeCoroutineSuspended$kotlinx_coroutines_core");
+            CtMethod probeCoroutineCompleted = ctClass.getDeclaredMethod("access$probeCoroutineCompleted");
             probeCoroutineCreated.insertBefore(coroutineCreatedSrc);
             probeCoroutineSuspended.insertBefore(coroutineSuspendedSrc);
             probeCoroutineCompleted.insertBefore(coroutineCompletedSrc);
             probeCoroutineResumed.insertBefore(coroutineResumedSrc);
-            return ctClass.toBytecode();
         } catch (Throwable e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -66,18 +88,23 @@ public class CoroutineInstrumentator {
                 "io.inst.CoroutineInstrumentator.traceEnd(-2L);";
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(clazz)) {
             CtClass ctClass = pool.makeClass(byteArrayInputStream);
-            CtMethod method = ctClass.getDeclaredMethod(methodName);
-            boolean suspendFunction = isSuspendFunction(method);
-            if (suspendFunction) {
-                instrumentSuspendFunction(method, codeAtMethodStart, codeAtMethodEnd);
-            } else {
-                method.insertBefore(codeAtMethodStart);
-                method.insertAfter(codeAtMethodEnd, false, true);
-            }
+            transformMethodForTracing(ctClass, methodName, codeAtMethodStart, codeAtMethodEnd);
             return ctClass.toBytecode();
         } catch (Throwable e) {
             e.printStackTrace();
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void transformMethodForTracing(CtClass ctClass, String methodName, String codeAtMethodStart, String codeAtMethodEnd)
+            throws NotFoundException, CannotCompileException, BadBytecode {
+        CtMethod method = ctClass.getDeclaredMethod(methodName);
+        boolean suspendFunction = isSuspendFunction(method);
+        if (suspendFunction) {
+            instrumentSuspendFunction(method, codeAtMethodStart, codeAtMethodEnd);
+        } else {
+            method.insertBefore(codeAtMethodStart);
+            method.insertAfter(codeAtMethodEnd, false, true);
         }
     }
 
@@ -98,7 +125,8 @@ public class CoroutineInstrumentator {
                     }
                     if (continuationParameterIndex > 0) {
                         String statement = "{" +
-                                           "$" + continuationParameterIndex + "= new io.inst.TrackableContinuation($" + continuationParameterIndex + ");" +
+                                           "$" + continuationParameterIndex + "= new io.inst.TrackableContinuation($" +
+                                           continuationParameterIndex + ");" +
                                            "$_ = $proceed($$);" +
                                            "}";
                         m.replace(statement);
@@ -123,7 +151,10 @@ public class CoroutineInstrumentator {
             }
 
             int byteCode = iterator.byteAt(pos);
-            if (byteCode == Opcode.TABLESWITCH && isCoroutineLabelSwitch(method.getDeclaringClass(), method.getMethodInfo2(), iterator, previousPos)) {
+            if (byteCode == Opcode.TABLESWITCH && isCoroutineLabelSwitch(method.getDeclaringClass(),
+                    method.getMethodInfo2(),
+                    iterator,
+                    previousPos)) {
                 containsTableSwitch = true;
                 int branchPosition = getFirstBranchPosition(iterator, pos);
                 method.insertAtPoisition(branchPosition, src);
