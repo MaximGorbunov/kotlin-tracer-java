@@ -22,7 +22,7 @@ public class CoroutineInstrumentator {
     public static byte[] transformKotlinCoroutines(byte[] clazz) {
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(clazz)) {
             CtClass ctClass = pool.makeClass(byteArrayInputStream);
-            String coroutineCreatedSrc = "kotlin.coroutines.CoroutineContext context = completion.getContext();\n" +
+            String coroutineCreatedSrc = "kotlin.coroutines.CoroutineContext context = $1.getContext();\n" +
                                          "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
                                          ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
                                          ".coroutines.CoroutineId.Key);\n" +
@@ -42,7 +42,7 @@ public class CoroutineInstrumentator {
                                          ".coroutines.CoroutineId.Key);\n" +
                                          "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineResumed(coroutineName.getId" +
                                          "());";
-            String coroutineCompletedSrc = "kotlin.coroutines.CoroutineContext context = owner.info.getContext();\n" +
+            String coroutineCompletedSrc = "kotlin.coroutines.CoroutineContext context = $1.info.getContext();\n" +
                                            "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
                                            ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
                                            ".coroutines.CoroutineId.Key);\n" +
