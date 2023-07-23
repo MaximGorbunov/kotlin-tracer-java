@@ -28,7 +28,7 @@ public class CoroutineInstrumentator {
                                          ".coroutines.CoroutineId.Key);\n" +
                                          "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineCreated(coroutineName.getId" +
                                          "());";
-            String coroutineSuspendedSrc = "kotlin.coroutines.CoroutineContext context = frame.getContext();\n" +
+            String coroutineSuspendedSrc = "kotlin.coroutines.CoroutineContext context = $1.getContext();\n" +
                                            "kotlinx.coroutines.Job job = (kotlinx.coroutines.Job) context.get((kotlin" +
                                            ".coroutines.CoroutineContext.Key)kotlinx.coroutines.Job.Key);\n" +
                                            "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
@@ -36,7 +36,7 @@ public class CoroutineInstrumentator {
                                            ".coroutines.CoroutineId.Key);\n" +
                                            "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineSuspend(coroutineName" +
                                            ".getId());";
-            String coroutineResumedSrc = "kotlin.coroutines.CoroutineContext context = frame.getContext();\n" +
+            String coroutineResumedSrc = "kotlin.coroutines.CoroutineContext context = $1.getContext();\n" +
                                          "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
                                          ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
                                          ".coroutines.CoroutineId.Key);\n" +
