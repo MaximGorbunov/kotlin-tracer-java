@@ -19,40 +19,45 @@ import static io.inst.javassist.CtBehavior.isCoroutineLabelSwitch;
 public class CoroutineInstrumentator {
     private static final ClassPool pool = ClassPool.getDefault();
     protected static String coroutineCreatedSrc = "kotlin.coroutines.CoroutineContext context = $1.getContext();\n" +
-                                 "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
-                                 ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
-                                 ".coroutines.CoroutineId.Key);\n" +
-                                 "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineCreated(coroutineName.getId" +
-                                 "());";
+                                                  "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
+                                                  ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
+                                                  ".coroutines.CoroutineId.Key);\n" +
+                                                  "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineCreated" +
+                                                  "(coroutineName.getId" +
+                                                  "());";
     protected static String coroutineSuspendedSrc = "kotlin.coroutines.CoroutineContext context = $1.getContext();\n" +
-                                   "kotlinx.coroutines.Job job = (kotlinx.coroutines.Job) context.get((kotlin" +
-                                   ".coroutines.CoroutineContext.Key)kotlinx.coroutines.Job.Key);\n" +
-                                   "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
-                                   ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
-                                   ".coroutines.CoroutineId.Key);\n" +
-                                   "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineSuspend(coroutineName" +
-                                   ".getId());";
+                                                    "kotlinx.coroutines.Job job = (kotlinx.coroutines.Job) context.get((kotlin" +
+                                                    ".coroutines.CoroutineContext.Key)kotlinx.coroutines.Job.Key);\n" +
+                                                    "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
+                                                    ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
+                                                    ".coroutines.CoroutineId.Key);\n" +
+                                                    "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineSuspend" +
+                                                    "(coroutineName" +
+                                                    ".getId());";
     protected static String coroutineResumedSrc = "kotlin.coroutines.CoroutineContext context = $1.getContext();\n" +
-                                 "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
-                                 ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
-                                 ".coroutines.CoroutineId.Key);\n" +
-                                 "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineResumed(coroutineName.getId" +
-                                 "());";
+                                                  "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
+                                                  ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
+                                                  ".coroutines.CoroutineId.Key);\n" +
+                                                  "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineResumed" +
+                                                  "(coroutineName.getId" +
+                                                  "());";
     protected static String coroutineCompletedSrc = "kotlin.coroutines.CoroutineContext context = $2.info.getContext();\n" +
-                                   "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
-                                   ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
-                                   ".coroutines.CoroutineId.Key);\n" +
-                                   "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineCompleted(coroutineName" +
-                                   ".getId());";
-
+                                                    "kotlinx.coroutines.CoroutineId coroutineName = (kotlinx.coroutines" +
+                                                    ".CoroutineId)context.get((kotlin.coroutines.CoroutineContext.Key)kotlinx" +
+                                                    ".coroutines.CoroutineId.Key);\n" +
+                                                    "if (coroutineName != null) io.inst.CoroutineInstrumentator.coroutineCompleted" +
+                                                    "(coroutineName" +
+                                                    ".getId());";
 
     public static byte[] transformKotlinCoroutines(byte[] clazz) {
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(clazz)) {
             CtClass ctClass = pool.makeClass(byteArrayInputStream);
-       transformKotlinCoroutines(ctClass, coroutineSuspendedSrc,
+            transformKotlinCoroutines(ctClass,
+                    coroutineCreatedSrc,
+                    coroutineSuspendedSrc,
                     coroutineResumedSrc,
-                    coroutineCompletedSrc,
-                    coroutineCreatedSrc);
+                    coroutineCompletedSrc
+            );
             return ctClass.toBytecode();
         } catch (IOException | CannotCompileException e) {
             e.printStackTrace();
