@@ -7,9 +7,6 @@ import io.inst.mock.FunctionInvocationMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.debug.DebugProbes
 import org.junit.Test
-import kotlin.coroutines.Continuation
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KClass
 
 
@@ -21,10 +18,10 @@ class CoroutineInstrumentatorTest: JvstTestRoot("coroutine-instrumentation-test"
         val cc = sloader["kotlinx.coroutines.debug.internal.DebugProbesImpl"]
         CoroutineInstrumentator.transformKotlinCoroutines(
             cc,
-            "io.inst.mock.DebugProbesInvocationMock.invokeCoroutineCreated();",
-            "io.inst.mock.DebugProbesInvocationMock.invokeCoroutineResumed();",
-            "io.inst.mock.DebugProbesInvocationMock.invokeCoroutineSuspended();",
-            "io.inst.mock.DebugProbesInvocationMock.invokeCoroutineCompleted();"
+            "${CoroutineInstrumentator.coroutineCreatedSrc.replace(Regex("if \\(.*"), "")}io.inst.mock.DebugProbesInvocationMock.invokeCoroutineCreated();",
+            "${CoroutineInstrumentator.coroutineSuspendedSrc.replace(Regex("if \\(.*"), "")}io.inst.mock.DebugProbesInvocationMock.invokeCoroutineResumed();",
+            "${CoroutineInstrumentator.coroutineResumedSrc.replace(Regex("if \\(.*"), "")}io.inst.mock.DebugProbesInvocationMock.invokeCoroutineSuspended();",
+            "${CoroutineInstrumentator.coroutineCompletedSrc.replace(Regex("if \\(.*"), "")}io.inst.mock.DebugProbesInvocationMock.invokeCoroutineCompleted();"
         )
         cc.writeFile(".")
         cloader.loadClass(cc.name)
