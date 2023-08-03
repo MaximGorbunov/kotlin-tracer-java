@@ -88,13 +88,13 @@ public class CoroutineInstrumentator {
     }
 
     public static byte[] transformMethodForTracing(byte[] clazz, String methodName) {
-        String codeAtMethodStart =
-                "io.inst.CoroutineInstrumentator.traceStart();";
+        String suspendCodeAtMethodStart = "io.inst.CoroutineInstrumentator.traceStart(true);";
+        String nonSuspendCodeAtMethodStart = "io.inst.CoroutineInstrumentator.traceStart(false);";
         String codeAtMethodEnd =
                 "io.inst.CoroutineInstrumentator.traceEnd(-2L);";
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(clazz)) {
             CtClass ctClass = pool.makeClass(byteArrayInputStream);
-            transformMethodForTracing(ctClass, methodName, codeAtMethodStart, codeAtMethodEnd);
+            transformMethodForTracing(ctClass, methodName, suspendCodeAtMethodStart, nonSuspendCodeAtMethodStart, codeAtMethodEnd);
             return ctClass.toBytecode();
         } catch (Throwable e) {
             e.printStackTrace();
@@ -102,14 +102,19 @@ public class CoroutineInstrumentator {
         }
     }
 
-    public static void transformMethodForTracing(CtClass ctClass, String methodName, String codeAtMethodStart, String codeAtMethodEnd)
+    public static void transformMethodForTracing(
+            CtClass ctClass,
+            String methodName,
+            String suspendCodeAtMethodStart,
+            String nonSuspendCodeAtMethodStart,
+            String codeAtMethodEnd)
             throws NotFoundException, CannotCompileException, BadBytecode {
         CtMethod method = ctClass.getDeclaredMethod(methodName);
         boolean suspendFunction = isSuspendFunction(method);
         if (suspendFunction) {
-            instrumentSuspendFunction(method, codeAtMethodStart, codeAtMethodEnd);
+            instrumentSuspendFunction(method, suspendCodeAtMethodStart, codeAtMethodEnd);
         } else {
-            method.insertBefore(codeAtMethodStart);
+            method.insertBefore(nonSuspendCodeAtMethodStart);
             method.insertAfter(codeAtMethodEnd, false, true);
         }
     }
@@ -201,7 +206,7 @@ public class CoroutineInstrumentator {
 
     public static native void coroutineSuspend(long coroutineId);
 
-    public static native void traceStart();
+    public static native void traceStart(boolean suspendFunction);
 
     public static native void traceEnd(long coroutineId);
 }
