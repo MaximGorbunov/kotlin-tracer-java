@@ -109,7 +109,7 @@ public class CoroutineInstrumentator {
         CtMethod method = ctClass.getDeclaredMethod(methodName);
         boolean suspendFunction = isSuspendFunction(method);
         if (suspendFunction) {;
-            String coroutineId = "io.inst.CoroutineIdGetter.getCoroutineId($" + method.getParameterTypes().length + ")";
+            String coroutineId = "io.inst.CoroutineIdGetter.getCoroutineId($" + method.getParameterTypes().length + ".getContext())";
             instrumentSuspendFunction(method, String.format(codeAtMethodStart, coroutineId), String.format(codeAtMethodEnd, coroutineId));
         } else {
             method.insertBefore(String.format(codeAtMethodStart, "-2"));
