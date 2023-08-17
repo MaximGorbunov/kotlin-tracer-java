@@ -88,8 +88,8 @@ public class CoroutineInstrumentator {
     }
 
     public static byte[] transformMethodForTracing(byte[] clazz, String methodName) {
-        String codeAtMethodStart = "io.inst.CoroutineInstrumentator.traceStart(io.inst.CoroutineIdGetter.getCoroutineId(%d));";
-        String codeAtMethodEnd = "io.inst.CoroutineInstrumentator.traceEnd(%d);";
+        String codeAtMethodStart = "io.inst.CoroutineInstrumentator.traceStart(io.inst.CoroutineIdGetter.getCoroutineId(%s));";
+        String codeAtMethodEnd = "io.inst.CoroutineInstrumentator.traceEnd(%s);";
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(clazz)) {
             CtClass ctClass = pool.makeClass(byteArrayInputStream);
             transformMethodForTracing(ctClass, methodName, codeAtMethodStart, codeAtMethodEnd);
@@ -112,8 +112,8 @@ public class CoroutineInstrumentator {
             String coroutineId = "io.inst.CoroutineIdGetter.getCoroutineId($" + method.getParameterTypes().length + ")";
             instrumentSuspendFunction(method, String.format(codeAtMethodStart, coroutineId), String.format(codeAtMethodEnd, coroutineId));
         } else {
-            method.insertBefore(String.format(codeAtMethodStart, -2));
-            method.insertAfter(String.format(codeAtMethodEnd, -2), false, true);
+            method.insertBefore(String.format(codeAtMethodStart, "-2"));
+            method.insertAfter(String.format(codeAtMethodEnd, "-2"), false, true);
         }
     }
 
