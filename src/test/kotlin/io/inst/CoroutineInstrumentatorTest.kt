@@ -59,7 +59,6 @@ class CoroutineInstrumentatorTest: JvstTestRoot("coroutine-instrumentation-test"
             cc,
             methodName,
             "io.inst.mock.FunctionInvocationMock.invokeStart();",
-            "io.inst.mock.FunctionInvocationMock.invokeStart();",
             "io.inst.mock.FunctionInvocationMock.invokeEnd();"
         )
         cc.writeFile(".")

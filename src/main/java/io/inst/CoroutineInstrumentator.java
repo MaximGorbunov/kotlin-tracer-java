@@ -88,13 +88,11 @@ public class CoroutineInstrumentator {
     }
 
     public static byte[] transformMethodForTracing(byte[] clazz, String methodName) {
-        String suspendCodeAtMethodStart = "io.inst.CoroutineInstrumentator.traceStart(true);";
-        String nonSuspendCodeAtMethodStart = "io.inst.CoroutineInstrumentator.traceStart(false);";
-        String codeAtMethodEnd =
-                "io.inst.CoroutineInstrumentator.traceEnd(-2L);";
+        String codeAtMethodStart = "io.inst.CoroutineInstrumentator.traceStart(io.inst.CoroutineIdGetter.getCoroutineId(%d));";
+        String codeAtMethodEnd = "io.inst.CoroutineInstrumentator.traceEnd(%d);";
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(clazz)) {
             CtClass ctClass = pool.makeClass(byteArrayInputStream);
-            transformMethodForTracing(ctClass, methodName, suspendCodeAtMethodStart, nonSuspendCodeAtMethodStart, codeAtMethodEnd);
+            transformMethodForTracing(ctClass, methodName, codeAtMethodStart, codeAtMethodEnd);
             return ctClass.toBytecode();
         } catch (Throwable e) {
             e.printStackTrace();
@@ -105,17 +103,17 @@ public class CoroutineInstrumentator {
     public static void transformMethodForTracing(
             CtClass ctClass,
             String methodName,
-            String suspendCodeAtMethodStart,
-            String nonSuspendCodeAtMethodStart,
+            String codeAtMethodStart,
             String codeAtMethodEnd)
             throws NotFoundException, CannotCompileException, BadBytecode {
         CtMethod method = ctClass.getDeclaredMethod(methodName);
         boolean suspendFunction = isSuspendFunction(method);
-        if (suspendFunction) {
-            instrumentSuspendFunction(method, suspendCodeAtMethodStart, codeAtMethodEnd);
+        if (suspendFunction) {;
+            String coroutineId = "io.inst.CoroutineIdGetter.getCoroutineId($" + method.getParameterTypes().length + ")";
+            instrumentSuspendFunction(method, String.format(codeAtMethodStart, coroutineId), String.format(codeAtMethodEnd, coroutineId));
         } else {
-            method.insertBefore(nonSuspendCodeAtMethodStart);
-            method.insertAfter(codeAtMethodEnd, false, true);
+            method.insertBefore(String.format(codeAtMethodStart, -2));
+            method.insertAfter(String.format(codeAtMethodEnd, -2), false, true);
         }
     }
 
@@ -206,7 +204,7 @@ public class CoroutineInstrumentator {
 
     public static native void coroutineSuspend(long coroutineId);
 
-    public static native void traceStart(boolean suspendFunction);
+    public static native void traceStart(long coroutineId);
 
     public static native void traceEnd(long coroutineId);
 }
