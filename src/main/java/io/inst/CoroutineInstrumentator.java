@@ -88,7 +88,7 @@ public class CoroutineInstrumentator {
     }
 
     public static byte[] transformMethodForTracing(byte[] clazz, String methodName) {
-        String codeAtMethodStart = "io.inst.CoroutineInstrumentator.traceStart(io.inst.CoroutineIdGetter.getCoroutineId(%s));";
+        String codeAtMethodStart = "io.inst.CoroutineInstrumentator.traceStart(%s);";
         String codeAtMethodEnd = "io.inst.CoroutineInstrumentator.traceEnd(%s);";
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(clazz)) {
             CtClass ctClass = pool.makeClass(byteArrayInputStream);
@@ -104,16 +104,18 @@ public class CoroutineInstrumentator {
             CtClass ctClass,
             String methodName,
             String codeAtMethodStart,
-            String codeAtMethodEnd)
+            String codeAtMethodEnd
+    )
             throws NotFoundException, CannotCompileException, BadBytecode {
         CtMethod method = ctClass.getDeclaredMethod(methodName);
         boolean suspendFunction = isSuspendFunction(method);
-        if (suspendFunction) {;
+        if (suspendFunction) {
+            ;
             String coroutineId = "io.inst.CoroutineIdGetter.getCoroutineId($" + method.getParameterTypes().length + ".getContext())";
             instrumentSuspendFunction(method, String.format(codeAtMethodStart, coroutineId), String.format(codeAtMethodEnd, coroutineId));
         } else {
-            method.insertBefore(String.format(codeAtMethodStart, "-2"));
-            method.insertAfter(String.format(codeAtMethodEnd, "-2"), false, true);
+            method.insertBefore(String.format(codeAtMethodStart, "-2L"));
+            method.insertAfter(String.format(codeAtMethodEnd, "-2L"), false, true);
         }
     }
 

@@ -11,6 +11,7 @@ public class CoroutineIdGetter {
         try {
             Class<?> coroutineIdClass = Class.forName("kotlinx.coroutines.CoroutineId");
             id = coroutineIdClass.getDeclaredField("id");
+            id.setAccessible(true);
             key = (CoroutineContext.Key<?>) coroutineIdClass.getDeclaredField("Key").get(null);
         } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
